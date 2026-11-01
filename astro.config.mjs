@@ -2,5 +2,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://glowbeautystudio.ba',
+  // Privremena adresa na Cloudflare Pages; zamijeniti pravim domenom kad ga studio dobije
+  site: 'https://glow-beauty-studio.pages.dev',
 });
