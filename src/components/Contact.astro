@@ -1,0 +1,185 @@
+---
+import { nav, studio } from '../data/site';
+import Icon from './Icon.astro';
+
+const year = new Date().getFullYear();
+---
+
+<section class="contact" id="kontakt">
+  <div class="wrap contact__grid">
+    <div class="reveal">
+      <p class="eyebrow">Rezervacije</p>
+      <h2 class="display">
+        <span>Rezerviši</span>
+        <span>svoj</span>
+        <em>termin</em>
+      </h2>
+      <p class="lead contact__lead">
+        Termine zakazujemo putem Instagram poruke ili telefonom. Javi nam se – odgovaramo brzo.
+      </p>
+      <div class="contact__actions">
+        <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Pošalji poruku</a>
+        <a class="btn btn--ghost" href={studio.phoneHref}>Pozovi</a>
+      </div>
+    </div>
+
+    <ul class="contact__list reveal">
+      <li>
+        <Icon name="pin" />
+        <span>
+          <small>Adresa</small>
+          <a href={studio.mapHref} target="_blank" rel="noopener">{studio.address}, {studio.city}</a>
+        </span>
+      </li>
+      <li>
+        <Icon name="phone" />
+        <span>
+          <small>Telefon</small>
+          <a href={studio.phoneHref}>{studio.phone}</a>
+        </span>
+      </li>
+      <li>
+        <Icon name="instagram" />
+        <span>
+          <small>Instagram</small>
+          <a href={studio.instagram} target="_blank" rel="noopener">{studio.instagramHandle}</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <p class="footer__brand">
+      Glow <em>beauty studio</em>
+    </p>
+    <nav aria-label="Footer navigacija">
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+    <p class="footer__copy">© {year} {studio.name} · {studio.tagline}</p>
+  </div>
+</footer>
+
+<style>
+  .contact {
+    padding-block: clamp(72px, 10vw, 120px);
+    background: var(--blush);
+  }
+
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 56px;
+    align-items: end;
+  }
+
+  .contact .eyebrow {
+    margin-bottom: 18px;
+  }
+
+  .contact__lead {
+    max-width: 38ch;
+    margin-top: 32px;
+  }
+
+  .contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+  }
+
+  .contact__list {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .contact__list li {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--wine);
+  }
+
+  .contact__list li:first-child {
+    border-top: 1px solid var(--line);
+  }
+
+  .contact__list span {
+    display: grid;
+    gap: 2px;
+  }
+
+  .contact__list small {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .contact__list a {
+    color: var(--ink);
+    font-size: 17px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .contact__list a:hover {
+    color: var(--wine);
+  }
+
+  .footer {
+    padding-block: 36px;
+    background: var(--ink);
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 32px;
+    font-size: 12px;
+  }
+
+  .footer__brand {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .footer__brand em {
+    margin-left: 4px;
+    font-family: var(--serif);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+  }
+
+  .footer a:hover {
+    color: var(--white);
+  }
+
+  @media (max-width: 860px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

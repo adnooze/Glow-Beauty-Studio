@@ -1,0 +1,193 @@
+---
+import { studio } from '../data/site';
+---
+
+<section class="hero" id="top">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow">Beauty studio · {studio.city}</p>
+      <h1 class="display hero__title">
+        <span>Your glow,</span>
+        <span>our</span>
+        <em>art.</em>
+      </h1>
+      <div class="hero__bottom">
+        <p class="lead">
+          Trepavice, obrve, nokti i spray tan –<br />
+          sve na jednom mjestu, na Stupu.
+        </p>
+        <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <img
+        class="hero__img"
+        src="/images/lash-application.webp"
+        alt="Nadogradnja trepavica u Glow Beauty Studiju"
+        width="616"
+        height="860"
+        fetchpriority="high"
+      />
+      <div class="hero__card">
+        <div class="hero__card-text">
+          <div class="hero__proof">
+            <span class="hero__avatars" aria-hidden="true">
+              <img src="/images/nails-babyboomer.webp" alt="" width="28" height="28" />
+              <img src="/images/brow-lift.webp" alt="" width="28" height="28" />
+            </span>
+            <span>{studio.followers} pratitelja</span>
+          </div>
+          <p>
+            Profesionalni beauty tretmani, kvalitetni materijali i dugotrajni rezultati.
+          </p>
+        </div>
+        <img
+          class="hero__card-img"
+          src="/images/brow-lift.webp"
+          alt="Brow lift rezultat"
+          width="96"
+          height="128"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: linear-gradient(180deg, var(--blush) 0%, var(--white) 100%);
+    padding-block: clamp(40px, 7vw, 88px) clamp(56px, 8vw, 104px);
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: stretch;
+  }
+
+  .hero__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .hero__title {
+    margin-top: 22px;
+    font-size: clamp(3rem, 8vw, 6.4rem);
+  }
+
+  .hero__bottom {
+    display: grid;
+    gap: 22px;
+    justify-items: start;
+  }
+
+  .hero__media {
+    position: relative;
+  }
+
+  .hero__img {
+    width: 100%;
+    height: 100%;
+    max-height: 640px;
+    min-height: 420px;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  .hero__card {
+    position: absolute;
+    right: -24px;
+    bottom: 32px;
+    display: flex;
+    gap: 14px;
+    align-items: stretch;
+    max-width: 330px;
+    padding: 12px;
+    background: rgba(120, 92, 82, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--radius);
+    color: var(--white);
+  }
+
+  .hero__card-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 4px 0 4px 4px;
+  }
+
+  .hero__card-text p {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .hero__proof {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    opacity: 0.9;
+  }
+
+  .hero__avatars {
+    display: flex;
+  }
+
+  .hero__avatars img {
+    width: 26px;
+    height: 26px;
+    border: 1.5px solid var(--white);
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .hero__avatars img + img {
+    margin-left: -9px;
+  }
+
+  .hero__card-img {
+    width: 92px;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 1240px) {
+    .hero__card {
+      right: 16px;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__img {
+      min-height: 0;
+      aspect-ratio: 4 / 5;
+      max-height: 560px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero__card {
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      max-width: none;
+    }
+  }
+</style>

@@ -1,0 +1,177 @@
+---
+import { services, studio } from '../data/site';
+import Icon from './Icon.astro';
+---
+
+<section class="services" id="usluge">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow">Naše usluge</p>
+        <h2 class="display">
+          <span>Sve što ti</span>
+          <span>treba za</span>
+          <em>savršen glow</em>
+        </h2>
+      </div>
+      <div class="section-head__aside">
+        <p class="lead">
+          Od trepavica i obrva, preko preplanulog tena do njegovanih noktiju – svaki detalj je važan.
+        </p>
+        <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
+      </div>
+    </div>
+
+    <div class="services__grid">
+      {
+        services.map((s, i) => (
+          <a class="card reveal" href="#cjenovnik" style={`transition-delay:${i * 70}ms`}>
+            <span class="card__num">{String(i + 1).padStart(2, '0')}</span>
+            <img src={s.image} alt={s.alt} loading="lazy" />
+            <span class="card__body">
+              <span class="card__title">{s.title}</span>
+              <span class="card__text">{s.text}</span>
+            </span>
+            <span class="card__arrow">
+              <Icon name="arrow" size={16} />
+            </span>
+          </a>
+        ))
+      }
+      <a class="card card--cta reveal" href="#cjenovnik" style={`transition-delay:${services.length * 70}ms`}>
+        <span class="card__num">06</span>
+        <span class="card__body">
+          <span class="card__title">Cjenovnik</span>
+          <span class="card__text">Sve cijene na jednom mjestu – pogledaj i pronađi tretman za sebe.</span>
+        </span>
+        <span class="card__arrow">
+          <Icon name="arrow" size={16} />
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    padding-block: clamp(64px, 9vw, 120px);
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px 8px;
+    margin-top: clamp(48px, 7vw, 84px);
+  }
+
+  .card {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3.1;
+    overflow: hidden;
+    border-radius: 2px;
+    background: var(--blush-deep);
+    color: var(--white);
+  }
+
+  .card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2px;
+    transition: transform 0.8s ease;
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 2px;
+    background: linear-gradient(180deg, rgba(30, 18, 18, 0) 40%, rgba(30, 18, 18, 0.62) 100%);
+    pointer-events: none;
+  }
+
+  .card__num {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding: 4px 7px;
+    background: var(--white);
+    border-bottom-right-radius: 2px;
+    color: var(--ink);
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .card__body {
+    position: absolute;
+    left: 18px;
+    right: 48px;
+    bottom: 16px;
+    z-index: 2;
+    display: grid;
+    gap: 4px;
+  }
+
+  .card__title {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+    font-style: italic;
+    line-height: 1;
+  }
+
+  .card__text {
+    max-width: 30ch;
+    font-size: 11px;
+    line-height: 1.35;
+    opacity: 0.88;
+  }
+
+  .card__arrow {
+    position: absolute;
+    right: 16px;
+    bottom: 18px;
+    z-index: 2;
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover img {
+    transform: scale(1.04);
+  }
+
+  .card:hover .card__arrow {
+    transform: translate(2px, -2px);
+  }
+
+  .card--cta {
+    background: var(--wine);
+  }
+
+  .card--cta::after {
+    display: none;
+  }
+
+  .card--cta .card__title {
+    font-size: clamp(2rem, 3vw, 2.6rem);
+  }
+
+  .card--cta:hover {
+    background: var(--wine-dark);
+  }
+
+  @media (max-width: 900px) {
+    .services__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .services__grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+</style>

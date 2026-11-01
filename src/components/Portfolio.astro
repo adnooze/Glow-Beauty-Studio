@@ -1,0 +1,148 @@
+---
+import { portfolio, studio } from '../data/site';
+
+const [a, b, c, d, e] = portfolio;
+---
+
+<section class="work" id="radovi">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow">Portfolio</p>
+        <h2 class="display">
+          <span>Naš rad</span>
+          <em>pravi rezultati</em>
+        </h2>
+      </div>
+      <div class="section-head__aside">
+        <p class="lead">
+          Svaki detalj je važan, svaka klijentica jedinstvena. Ovo su neki od naših radova – urađeni s
+          pažnjom, preciznošću i strašću.
+        </p>
+        <a class="btn" href={studio.instagram} target="_blank" rel="noopener">Više na Instagramu</a>
+      </div>
+    </div>
+
+    <div class="work__grid">
+      <figure class="work__item work__item--1 reveal">
+        <img src={a.image} alt={a.alt} loading="lazy" />
+        <figcaption class="small">{a.caption}</figcaption>
+      </figure>
+      <figure class="work__item work__item--2 reveal">
+        <img src={b.image} alt={b.alt} loading="lazy" />
+      </figure>
+      <figure class="work__item work__item--3 reveal">
+        <img src={c.image} alt={c.alt} loading="lazy" />
+      </figure>
+      <figure class="work__item work__item--4 reveal">
+        <img src={d.image} alt={d.alt} loading="lazy" />
+        <figcaption class="small">{d.caption}</figcaption>
+      </figure>
+      <figure class="work__item work__item--5 reveal">
+        <figcaption class="small">{e.caption} Od elegantnog frencha do punijih obrva – svaki tretman prilagođen tebi.</figcaption>
+        <img src={e.image} alt={e.alt} loading="lazy" />
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .work {
+    padding-block: clamp(72px, 10vw, 128px);
+  }
+
+  .work__grid {
+    display: grid;
+    grid-template-columns: 0.85fr 0.85fr 1.1fr 1.1fr 0.85fr;
+    gap: 6px;
+    align-items: start;
+    margin-top: clamp(48px, 7vw, 80px);
+  }
+
+  .work__item {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 0;
+  }
+
+  .work__item img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  .work__item figcaption {
+    max-width: 22ch;
+  }
+
+  .work__item--1 img {
+    aspect-ratio: 4 / 4.6;
+  }
+
+  .work__item--1 figcaption {
+    margin-top: 90px;
+  }
+
+  .work__item--2 {
+    margin-top: 120px;
+  }
+
+  .work__item--2 img {
+    aspect-ratio: 3 / 4.6;
+  }
+
+  .work__item--3 img {
+    aspect-ratio: 3 / 4.4;
+  }
+
+  .work__item--4 img {
+    aspect-ratio: 1 / 1;
+  }
+
+  .work__item--4 figcaption {
+    margin-top: 140px;
+  }
+
+  .work__item--5 {
+    gap: 40px;
+  }
+
+  .work__item--5 img {
+    aspect-ratio: 1 / 1;
+  }
+
+  @media (max-width: 900px) {
+    .work__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .work__item--1 figcaption,
+    .work__item--4 figcaption {
+      margin-top: 0;
+    }
+
+    .work__item--2 {
+      margin-top: 48px;
+    }
+
+    .work__item--3 {
+      grid-column: span 2;
+      order: -1;
+    }
+
+    .work__item--3 img {
+      aspect-ratio: 4 / 3;
+    }
+
+    .work__item--5 {
+      grid-column: span 2;
+      gap: 14px;
+    }
+
+    .work__item--5 img {
+      aspect-ratio: 16 / 10;
+    }
+  }
+</style>

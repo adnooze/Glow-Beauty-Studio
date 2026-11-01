@@ -1,0 +1,86 @@
+---
+import { nav, studio } from '../data/site';
+---
+
+<header class="header">
+  <div class="wrap header__inner">
+    <a href="#top" class="logo" aria-label={`${studio.name} – početna`}>
+      <span class="logo__mark">Glow</span>
+      <span class="logo__sub">beauty studio</span>
+    </a>
+    <nav class="header__nav" aria-label="Glavna navigacija">
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+    <a class="btn header__cta" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši</a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 68px;
+  }
+
+  .logo {
+    display: grid;
+    line-height: 1;
+  }
+
+  .logo__mark {
+    color: var(--ink);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .logo__sub {
+    margin-top: 2px;
+    color: var(--wine);
+    font-family: var(--serif);
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  .header__nav {
+    display: flex;
+    gap: 34px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .header__nav a {
+    color: var(--ink);
+    transition: color 0.2s ease;
+  }
+
+  .header__nav a:hover {
+    color: var(--wine);
+  }
+
+  .header__cta {
+    min-height: 40px;
+    padding: 0 22px;
+  }
+
+  @media (max-width: 860px) {
+    .header__nav {
+      display: none;
+    }
+  }
+</style>
