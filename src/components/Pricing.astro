@@ -8,16 +8,20 @@ import { pricing, studio } from '../data/site';
     <div class="section-head reveal">
       <div>
         <p class="eyebrow">Cjenovnik</p>
-        <h2 class="display">
+        <h2 class="display display--tight">
           <span>Naše cijene</span>
           <em>bez iznenađenja</em>
         </h2>
       </div>
       <div class="section-head__aside">
-        <p class="lead">
-          Profesionalna usluga · kvalitetni materijali · dugotrajan efekat · siguran i precizan rad.
+        <p class="intro">
+          Profesionalna usluga, kvalitetni materijali i dugotrajan efekat – <strong>po cijenama koje znaš unaprijed</strong>.
+          Sve cijene su u KM.
         </p>
-        <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
+        <div class="section-head__actions">
+          <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
+          <a class="link-arrow" href={studio.phoneHref}>Pozovi {studio.phone}</a>
+        </div>
       </div>
     </div>
 

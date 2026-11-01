@@ -15,10 +15,14 @@ import Icon from './Icon.astro';
         </h2>
       </div>
       <div class="section-head__aside">
-        <p class="lead">
-          Od trepavica i obrva, preko preplanulog tena do njegovanih noktiju – svaki detalj je važan.
+        <p class="intro">
+          Od trepavica i obrva, preko preplanulog tena do njegovanih noktiju – <strong>svaki detalj je važan</strong>.
+          Pet tretmana, jedan studio na Stupu.
         </p>
-        <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
+        <div class="section-head__actions">
+          <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
+          <a class="link-arrow" href="#cjenovnik">Pogledaj cjenovnik <Icon name="arrow" size={14} /></a>
+        </div>
       </div>
     </div>
 
