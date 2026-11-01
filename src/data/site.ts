@@ -23,35 +23,40 @@ export const nav = [
   { label: 'Kontakt', href: '#kontakt' },
 ];
 
-export const services: { title: string; text: string; image: string; alt: string; focus?: string }[] = [
+export const services: { title: string; text: string; price: string; image: string; alt: string; focus?: string }[] = [
   {
     title: 'Nokti',
     text: 'Gel na prirodne nokte, nadogradnja, french, ombre i detalji za uredan, ženstven izgled.',
-    image: '/images/nails-milky-french.webp',
-    alt: 'Mliječnoružičasti french manikir',
+    price: 'Gel od 40 KM',
+    image: '/images/price-nails.webp',
+    alt: 'Nude gel na bademastim noktima',
   },
   {
     title: 'Trepavice',
     text: 'Nadogradnja trepavica – novi set, korekcija i skidanje, prilagođeno obliku oka.',
+    price: 'Novi set 85 KM',
     image: '/images/price-lash-ext.webp',
-    alt: 'Nadogradnja trepavica u toku',
+    alt: 'Oko s nadogradnjom trepavica',
   },
   {
     title: 'Lash & Brow lift',
     text: 'Podignute, uredne i definisane obrve i trepavice bez svakodnevnog stilizovanja.',
+    price: 'Brow lift 40 KM',
     image: '/images/brow-lift.webp',
     alt: 'Obrve nakon brow lift tretmana',
   },
   {
     title: 'Spray tan',
     text: 'Ravnomjeran, prirodan ten za par minuta – classic ili rapid formula.',
+    price: 'Classic 50 KM',
     image: '/images/spray-tan.webp',
     alt: 'Preplanuli ten nakon spray tan tretmana',
-    focus: '22% center',
+    focus: '24% 40%',
   },
   {
     title: 'Pedikir',
     text: 'Njegovana stopala i uredni nokti, uz skidanje starog materijala po potrebi.',
+    price: 'Pedikir 40 KM',
     image: '/images/price-pedicure.webp',
     alt: 'Njegovani nokti na nogama nakon pedikira',
   },
@@ -68,27 +73,18 @@ export const features = [
 
 export const marquee = ['manikir', 'nadogradnja trepavica', 'lash lift', 'brow lift', 'spray tan', 'pedikir', 'nadogradnja noktiju', 'french & ombre'];
 
-export const marqueeAlt = ['your glow, our art', 'rezervacije u DM', 'bulevar stup, sarajevo', '+387 60 304 7747'];
-
-export const portfolio = {
-  feature: {
-    image: '/images/nails-nude-french.webp',
-    alt: 'Nude baza i bijeli french',
-    caption: 'Nude baza, savršen french i visok sjaj – za nokte koji uvijek izgledaju uredno.',
-  },
-  items: [
-    { image: '/images/nails-red.webp', alt: 'Crveni gel lak', title: 'Klasična crvena', caption: 'Uvijek u modi.' },
-    { image: '/images/nails-almond-french.webp', alt: 'Bademasti french nokti', title: 'Almond french', caption: 'Elegancija je u detaljima.' },
-    { image: '/images/salon-nail-desk.webp', alt: 'Radni sto za manikir u studiju', title: 'Naš studio', caption: 'Mirno mjesto samo za tebe.' },
-  ],
-};
+export const portfolio = [
+  { image: '/images/nails-nude-french.webp', alt: 'Nude baza i bijeli french', title: 'Nude french', caption: 'Nude baza, savršen french i visok sjaj.' },
+  { image: '/images/nails-red.webp', alt: 'Crveni gel lak', title: 'Klasična crvena', caption: 'Bezvremenska, uvijek u modi.' },
+  { image: '/images/nails-milky-french.webp', alt: 'Mliječnoružičasti french manikir', title: 'Milky french', caption: 'Nježna mliječnoružičasta nijansa.' },
+  { image: '/images/nails-almond-french.webp', alt: 'Bademasti french nokti', title: 'Almond french', caption: 'Elegancija je u detaljima.' },
+];
 
 export type PriceRow = { name: string; note?: string; price: string };
 
-export const pricing: { title: string; image: string; rows: PriceRow[] }[] = [
+export const pricing: { title: string; rows: PriceRow[] }[] = [
   {
     title: 'Lash & Brow lift',
-    image: '/images/price-lash-lift.webp',
     rows: [
       { name: 'Lash lift', price: '45 KM' },
       { name: 'Brow lift', note: 'uključuje farbanje, čupanje i oblikovanje', price: '40 KM' },
@@ -99,7 +95,6 @@ export const pricing: { title: string; image: string; rows: PriceRow[] }[] = [
   },
   {
     title: 'Nokti',
-    image: '/images/price-nails.webp',
     rows: [
       { name: 'Gel na prirodne nokte – kratki', price: '40 KM' },
       { name: 'Gel na prirodne nokte – duži', price: '50 KM' },
@@ -112,7 +107,6 @@ export const pricing: { title: string; image: string; rows: PriceRow[] }[] = [
   },
   {
     title: 'Nadogradnja trepavica',
-    image: '/images/price-lash-ext.webp',
     rows: [
       { name: 'Nadogradnja trepavica', note: 'novi set', price: '85 KM' },
       { name: 'Korekcija trepavica', price: '70 KM' },
@@ -122,7 +116,6 @@ export const pricing: { title: string; image: string; rows: PriceRow[] }[] = [
   },
   {
     title: 'Spray tan',
-    image: '/images/price-spray-tan.webp',
     rows: [
       { name: 'Classic formula', note: 'ispiranje nakon 8h', price: '50 KM' },
       { name: 'Rapid formula', note: 'instant ispiranje (1h–3h)', price: '60 KM' },
@@ -130,7 +123,6 @@ export const pricing: { title: string; image: string; rows: PriceRow[] }[] = [
   },
   {
     title: 'Pedikir',
-    image: '/images/price-pedicure.webp',
     rows: [
       { name: 'Pedikir', price: '40 KM' },
       { name: 'Skidanje tuđeg materijala', price: '10 KM' },

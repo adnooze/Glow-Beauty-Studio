@@ -1,26 +1,29 @@
 :root {
-  /* Paleta iz njihovih postera: espresso, mocha, šampanj zlato i krem */
-  --ink: #2f2119;
-  --text: #5e5048;
-  --muted: #968a81;
+  /* Paleta iz njihovih postera: espresso, šampanj zlato i krem */
+  --ink: #2b1d16;
+  --text: #62564e;
+  --muted: #9a8f86;
   --accent: #9a7142;
-  --accent-dark: #7a5530;
+  --accent-dark: #7f5a32;
   --gold: #d2b282;
   --gold-grad: linear-gradient(110deg, #a47a45 0%, #d9bb88 28%, #f0dfbd 50%, #c9a26b 72%, #a47a45 100%);
-  --espresso: #3a2419;
-  --espresso-deep: #22150e;
-  --mocha: #a3826b;
-  --cream: #f5eee5;
-  --paper: #fbf8f3;
-  --blush: #f3ece3;
-  --line: #e6dcd0;
+  --espresso: #2f1f17;
+  --espresso-deep: #1f140f;
+  --cream: #f6efe6;
+  --paper: #fbf8f4;
+  --sand: #f2eadf;
+  --line: #e6dccf;
+  --line-gold: rgba(164, 122, 69, 0.35);
   --white: #ffffff;
 
   --sans: 'Inter Tight Variable', 'Inter Tight', system-ui, sans-serif;
   --serif: 'Cormorant Garamond', Georgia, serif;
+  /* Uspravni naslovi: Gilda Display ima uredne kvačice za š, č, ž */
+  --display: 'Gilda Display', Georgia, serif;
 
   --wrap: 1200px;
-  --gutter: clamp(16px, 4vw, 40px);
+  --gutter: clamp(20px, 5vw, 48px);
+  --section: clamp(80px, 11vw, 140px);
 }
 
 *,
@@ -31,7 +34,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 72px;
+  scroll-padding-top: 76px;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -41,7 +44,9 @@ body {
   color: var(--text);
   font-family: var(--sans);
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.7;
+  /* Ravne cifre i u serifu, da cijene budu lako čitljive */
+  font-variant-numeric: lining-nums;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -70,78 +75,86 @@ p {
   padding-inline: var(--gutter);
 }
 
-/* Mala oznaka sekcije: "CJENOVNIK ———" */
+/* Mala oznaka iznad naslova: "✦ NAŠE USLUGE" */
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   color: var(--accent-dark);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
 }
 
-.eyebrow::after {
-  content: '';
-  width: 56px;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.6;
-}
-
-/* Naslov: tanki uppercase serif + italic riječ u novom redu */
-.display {
-  color: var(--ink);
-  font-family: var(--serif);
-  font-size: clamp(2.5rem, 5.2vw, 4.4rem);
-  font-weight: 400;
-  line-height: 0.98;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-}
-
-.display > span {
-  display: block;
-}
-
-.display em {
-  display: block;
-  margin-left: 0.9em;
+.eyebrow::before {
+  content: '✦';
   color: var(--accent);
-  font-size: 1.12em;
+  font-size: 9px;
+  letter-spacing: 0;
+}
+
+/* Naslov sekcije: krupni serif, jedna riječ u italic zlatnoj */
+.title {
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 3.9vw, 3.3rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.005em;
+}
+
+.title em {
+  color: var(--accent);
+  font-family: var(--serif);
+  font-size: 1.08em;
   font-style: italic;
   font-weight: 300;
-  letter-spacing: 0;
-  text-transform: none;
+}
+
+/* Centrirano zaglavlje sekcije */
+.head {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  max-width: 640px;
+  margin: 0 auto clamp(48px, 6vw, 72px);
+  text-align: center;
+}
+
+.head .intro {
+  margin-inline: auto;
+}
+
+.rule {
+  width: 64px;
+  height: 1px;
+  background: var(--gold-grad);
+  border: 0;
+  margin: 0;
 }
 
 .intro {
-  max-width: 42ch;
+  max-width: 46ch;
   color: var(--text);
-  font-size: 16px;
-  line-height: 1.65;
-}
-
-.intro strong {
-  color: var(--ink);
-  font-weight: 600;
+  font-size: 15.5px;
+  line-height: 1.75;
 }
 
 .small {
   color: var(--muted);
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 12.5px;
+  line-height: 1.55;
 }
 
-/* Dugmad su pilule, kao u referenci */
+/* Dugmad: zlatna pilula i tanka varijanta */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 42px;
-  padding: 0 26px;
+  min-height: 48px;
+  padding: 0 32px;
   border: 1px solid transparent;
   border-radius: 999px;
   background: var(--gold-grad);
@@ -150,117 +163,75 @@ p {
   color: var(--espresso-deep);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   white-space: nowrap;
-  transition: background-position 0.6s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 10px 24px -14px rgba(127, 90, 50, 0.8);
+  transition: background-position 0.7s ease, background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .btn:hover {
   background-position: 100% 50%;
+  box-shadow: 0 14px 28px -14px rgba(127, 90, 50, 0.9);
 }
 
-.btn--light {
-  background: var(--cream);
-  color: var(--espresso);
-}
-
-.btn--light:hover {
-  background: var(--white);
-}
-
-.btn--dark {
-  background: var(--espresso);
-  color: var(--cream);
-}
-
-.btn--dark:hover {
-  background: var(--espresso-deep);
-}
-
-.btn--outline {
-  border-color: currentColor;
+.btn--line {
+  border-color: var(--ink);
   background: transparent;
-  color: inherit;
+  color: var(--ink);
+  box-shadow: none;
 }
 
-.btn--outline:hover {
+.btn--line:hover {
+  background: var(--ink);
+  color: var(--cream);
+  box-shadow: none;
+}
+
+.btn--line-light {
+  border-color: rgba(246, 239, 230, 0.55);
+  background: transparent;
+  color: var(--cream);
+  box-shadow: none;
+}
+
+.btn--line-light:hover {
   background: var(--cream);
   border-color: var(--cream);
   color: var(--espresso);
-}
-
-.btn--sm {
-  min-height: 30px;
-  padding: 0 16px;
-  font-size: 9.5px;
+  box-shadow: none;
 }
 
 .btn:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
-.link-arrow {
+.link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding-bottom: 3px;
-  border-bottom: 1px solid currentColor;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--line-gold);
   color: var(--ink);
-  font-size: 13px;
-  font-weight: 500;
-  transition: color 0.2s ease;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: color 0.25s ease, border-color 0.25s ease;
 }
 
-.link-arrow:hover {
+.link:hover {
   color: var(--accent);
-}
-
-/* Zaglavlje sekcije: naslov lijevo, tekst i dugmad desno */
-.section-head {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  gap: 32px clamp(40px, 6vw, 88px);
-  align-items: end;
-}
-
-.section-head .eyebrow {
-  margin-bottom: 20px;
-}
-
-.section-head__aside {
-  display: grid;
-  gap: 26px;
-  justify-items: start;
-  padding: 6px 0 10px clamp(28px, 3.5vw, 48px);
-  border-left: 1px solid var(--line);
-}
-
-.section-head__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 14px 26px;
-}
-
-@media (max-width: 760px) {
-  .section-head {
-    grid-template-columns: 1fr;
-  }
-
-  .section-head__aside {
-    padding: 24px 0 0;
-    border-left: 0;
-    border-top: 1px solid var(--line);
-  }
+  border-color: var(--accent);
 }
 
 .js .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(22px);
+  transition: opacity 1s ease, transform 1s ease;
 }
 
 .js .reveal.is-in {

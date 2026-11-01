@@ -1,5 +1,5 @@
 ---
-import { nav, services, studio } from '../data/site';
+import { nav, studio } from '../data/site';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
 
@@ -7,38 +7,53 @@ const year = new Date().getFullYear();
 ---
 
 <section class="booking" id="kontakt">
-  <img class="booking__bg" src="/images/brow-lift.webp" alt="" loading="lazy" />
-  <div class="wrap booking__inner reveal">
-    <h2 class="booking__title">Rezerviši svoj trenutak</h2>
-    <ul class="booking__services">
-      {services.map((s) => <li>{s.title}</li>)}
-    </ul>
-    <div class="booking__actions">
-      <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Pošalji poruku</a>
-      <a class="btn btn--outline" href={studio.phoneHref}>Pozovi</a>
+  <div class="wrap booking__grid">
+    <div class="booking__side booking__side--left" aria-hidden="true">
+      <img src="/images/lash-application.webp" alt="" loading="lazy" />
     </div>
 
-    <ul class="booking__info">
-      <li>
-        <Icon name="pin" size={16} />
-        <a href={studio.mapHref} target="_blank" rel="noopener">{studio.address}, {studio.city}</a>
-      </li>
-      <li>
-        <Icon name="phone" size={16} />
-        <a href={studio.phoneHref}>{studio.phone}</a>
-      </li>
-      <li>
-        <Icon name="instagram" size={16} />
-        <a href={studio.instagram} target="_blank" rel="noopener">{studio.instagramHandle}</a>
-      </li>
-    </ul>
+    <div class="booking__center reveal">
+      <p class="eyebrow">Rezervacije</p>
+      <h2 class="title">Rezerviši svoj <em>termin</em></h2>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="intro">
+        Termine zakazujemo putem Instagram poruke ili telefonom. Javi nam se – rado ćemo pronaći
+        termin koji ti odgovara.
+      </p>
+      <div class="booking__actions">
+        <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Pošalji poruku</a>
+        <a class="btn btn--line" href={studio.phoneHref}>Pozovi</a>
+      </div>
+
+      <ul class="booking__info">
+        <li>
+          <Icon name="pin" size={18} />
+          <small>Adresa</small>
+          <a href={studio.mapHref} target="_blank" rel="noopener">{studio.address}, {studio.city}</a>
+        </li>
+        <li>
+          <Icon name="phone" size={18} />
+          <small>Telefon</small>
+          <a href={studio.phoneHref}>{studio.phone}</a>
+        </li>
+        <li>
+          <Icon name="instagram" size={18} />
+          <small>Instagram</small>
+          <a href={studio.instagram} target="_blank" rel="noopener">{studio.instagramHandle}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="booking__side booking__side--right" aria-hidden="true">
+      <img src="/images/nails-almond-french.webp" alt="" loading="lazy" />
+    </div>
   </div>
 </section>
 
 <footer class="footer">
   <div class="wrap footer__inner">
     <a href="#top" class="footer__brand" aria-label={`${studio.name} – na vrh`}>
-      <Logo tone="light" size="sm" />
+      <Logo tone="light" />
     </a>
     <nav aria-label="Footer navigacija">
       {nav.map((item) => <a href={item.href}>{item.label}</a>)}
@@ -49,114 +64,106 @@ const year = new Date().getFullYear();
 
 <style>
   .booking {
-    position: relative;
-    display: grid;
-    place-items: center;
-    min-height: clamp(560px, 70vw, 720px);
-    padding-block: clamp(72px, 10vw, 120px);
-    overflow: hidden;
-    background: var(--espresso);
-    color: var(--cream);
-    text-align: center;
+    padding-block: var(--section);
+    background: var(--sand);
   }
 
-  .booking__bg {
-    position: absolute;
-    inset: 0;
+  .booking__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.4fr) minmax(0, 0.55fr);
+    gap: clamp(24px, 4vw, 56px);
+    align-items: center;
+  }
+
+  .booking__side {
+    aspect-ratio: 3 / 4.4;
+    overflow: hidden;
+    border-radius: 999px 999px 4px 4px;
+  }
+
+  .booking__side--left {
+    margin-top: 80px;
+  }
+
+  .booking__side--right {
+    margin-bottom: 80px;
+  }
+
+  .booking__side img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 35%;
   }
 
-  .booking::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(70% 70% at 50% 50%, rgba(34, 21, 14, 0.55), rgba(34, 21, 14, 0.82)),
-      rgba(58, 36, 25, 0.25);
-  }
-
-  .booking__inner {
-    position: relative;
-    z-index: 1;
+  .booking__center {
     display: grid;
     justify-items: center;
-    gap: 26px;
-  }
-
-  .booking__title {
-    font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.6vw, 3.6rem);
-    font-weight: 400;
-    line-height: 1.02;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .booking__services {
-    display: grid;
-    gap: 4px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-family: var(--serif);
-    font-size: 1.35rem;
-    font-style: italic;
-    font-weight: 300;
-    color: rgba(245, 238, 229, 0.9);
+    gap: 20px;
+    text-align: center;
   }
 
   .booking__actions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 12px;
-    margin-top: 6px;
+    gap: 14px;
+    margin-top: 8px;
   }
 
   .booking__info {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 14px 36px;
-    margin: 28px 0 0;
-    padding: 26px 0 0;
-    border-top: 1px solid rgba(245, 238, 229, 0.2);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    margin: 24px 0 0;
+    padding: 28px 0 0;
+    border-top: 1px solid var(--line-gold);
     list-style: none;
-    font-size: 13px;
   }
 
   .booking__info li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--gold);
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    padding-inline: 10px;
+    color: var(--accent);
+  }
+
+  .booking__info li + li {
+    border-left: 1px solid var(--line);
+  }
+
+  .booking__info small {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
   }
 
   .booking__info a {
-    color: var(--cream);
-    transition: color 0.2s ease;
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: 1.05rem;
+    line-height: 1.25;
+    transition: color 0.25s ease;
   }
 
   .booking__info a:hover {
-    color: var(--gold);
+    color: var(--accent);
   }
 
   .footer {
-    padding-block: 32px;
+    padding-block: 48px 36px;
     background: var(--espresso-deep);
-    color: rgba(245, 238, 229, 0.6);
+    color: rgba(246, 239, 230, 0.6);
   }
 
   .footer__inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px 32px;
+    display: grid;
+    justify-items: center;
+    gap: 24px;
     font-size: 12px;
+    text-align: center;
   }
 
   .footer__brand {
@@ -166,10 +173,37 @@ const year = new Date().getFullYear();
   .footer nav {
     display: flex;
     flex-wrap: wrap;
-    gap: 22px;
+    justify-content: center;
+    gap: 12px 32px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
   }
 
   .footer a:hover {
     color: var(--gold);
+  }
+
+  @media (max-width: 900px) {
+    .booking__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .booking__side {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .booking__info {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .booking__info li + li {
+      padding-top: 20px;
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
   }
 </style>

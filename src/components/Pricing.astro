@@ -3,45 +3,28 @@ import { pricing, studio } from '../data/site';
 ---
 
 <section class="prices" id="cjenovnik">
-  <p class="prices__watermark" aria-hidden="true">Glow</p>
   <div class="wrap">
-    <div class="section-head reveal">
-      <div>
-        <p class="eyebrow">Cjenovnik</p>
-        <h2 class="display display--tight">
-          <span>Naše cijene</span>
-          <em>bez iznenađenja</em>
-        </h2>
-      </div>
-      <div class="section-head__aside">
-        <p class="intro">
-          Profesionalna usluga, kvalitetni materijali i dugotrajan efekat – <strong>po cijenama koje znaš unaprijed</strong>.
-          Sve cijene su u KM.
-        </p>
-        <div class="section-head__actions">
-          <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
-          <a class="link-arrow" href={studio.phoneHref}>Pozovi {studio.phone}</a>
-        </div>
-      </div>
-    </div>
+    <header class="head reveal">
+      <p class="eyebrow">Cjenovnik</p>
+      <h2 class="title">Naše cijene, <em>bez iznenađenja</em></h2>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="intro">Profesionalna usluga i kvalitetni materijali – po cijenama koje znaš unaprijed.</p>
+    </header>
 
-    <div class="prices__grid">
+    <div class="prices__menu">
       {
         pricing.map((group) => (
-          <article class="price-card reveal">
-            <header class="price-card__head">
-              <img src={group.image} alt="" loading="lazy" />
-              <h3>{group.title}</h3>
-            </header>
+          <article class="price-group reveal">
+            <h3>{group.title}</h3>
             <ul>
               {group.rows.map((row) => (
                 <li>
-                  <span class="price-card__name">
+                  <span class="price-group__name">
                     {row.name}
                     {row.note && <small>{row.note}</small>}
                   </span>
-                  <span class="price-card__dots" aria-hidden="true" />
-                  <span class="price-card__price">{row.price}</span>
+                  <span class="price-group__dots" aria-hidden="true" />
+                  <span class="price-group__price">{row.price}</span>
                 </li>
               ))}
             </ul>
@@ -49,137 +32,106 @@ import { pricing, studio } from '../data/site';
         ))
       }
     </div>
+
+    <div class="prices__cta reveal">
+      <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
+      <a class="btn btn--line-light" href={studio.phoneHref}>Pozovi {studio.phone}</a>
+    </div>
   </div>
 </section>
 
 <style>
   .prices {
-    position: relative;
-    overflow: hidden;
-    padding-block: clamp(72px, 10vw, 128px);
-    border-top: 1px solid var(--line);
+    padding-block: var(--section);
+    background:
+      radial-gradient(50% 40% at 50% 0%, rgba(210, 178, 130, 0.14), transparent 70%),
+      var(--espresso);
+    color: var(--cream);
   }
 
-  .prices__watermark {
-    position: absolute;
-    top: 46%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #f1e9de;
-    font-size: clamp(9rem, 28vw, 24rem);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    pointer-events: none;
-    user-select: none;
+  .prices .eyebrow,
+  .prices .eyebrow::before {
+    color: var(--gold);
   }
 
-  .prices .wrap {
-    position: relative;
+  .prices .title {
+    color: var(--cream);
   }
 
-  .prices__grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-auto-flow: dense;
-    gap: 20px;
-    align-items: start;
-    margin-top: clamp(48px, 7vw, 80px);
+  .prices .title em {
+    color: var(--gold);
   }
 
-  /* Nokti imaju najviše stavki – zauzimaju srednju kolonu kroz dva reda */
-  .price-card:nth-child(2) {
-    grid-column: 2;
-    grid-row: span 2;
+  .prices .intro {
+    color: rgba(246, 239, 230, 0.72);
   }
 
-  .price-card {
-    padding: 22px;
-    background: rgba(255, 255, 255, 0.86);
-    border: 1px solid var(--line);
-    border-radius: 2px;
+  .prices__menu {
+    columns: 2 380px;
+    column-gap: clamp(48px, 7vw, 104px);
   }
 
-  .price-card__head {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  .price-group {
+    break-inside: avoid;
+    margin-bottom: 52px;
+  }
+
+  .price-group h3 {
+    padding-bottom: 14px;
     margin-bottom: 18px;
-  }
-
-  .price-card__head img {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  .price-card h3 {
-    color: var(--accent);
+    border-bottom: 1px solid rgba(210, 178, 130, 0.3);
+    color: var(--gold);
     font-family: var(--serif);
-    font-size: 1.6rem;
+    font-size: 1.9rem;
     font-style: italic;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 1.1;
   }
 
-  .price-card ul {
+  .price-group ul {
     display: grid;
-    gap: 12px;
+    gap: 14px;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .price-card li {
+  .price-group li {
     display: flex;
     align-items: baseline;
-    gap: 10px;
-    color: var(--ink);
-    font-size: 13px;
+    gap: 12px;
+    font-size: 14px;
   }
 
-  .price-card__name {
+  .price-group__name {
     display: grid;
+    color: var(--cream);
   }
 
-  .price-card__name small {
-    color: var(--muted);
-    font-size: 11px;
+  .price-group__name small {
+    color: rgba(246, 239, 230, 0.5);
+    font-size: 11.5px;
   }
 
-  .price-card__dots {
+  .price-group__dots {
     flex: 1;
-    min-width: 16px;
-    border-bottom: 1px dotted #cfc5c2;
+    min-width: 20px;
+    border-bottom: 1px dotted rgba(210, 178, 130, 0.4);
     transform: translateY(-4px);
   }
 
-  @media (max-width: 960px) {
-    .prices__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .price-card:nth-child(2) {
-      grid-column: auto;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .prices__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .price-card:nth-child(2) {
-      grid-row: auto;
-    }
-  }
-
-  .price-card__price {
-    color: var(--ink);
-    font-weight: 600;
+  .price-group__price {
+    color: var(--cream);
+    font-family: var(--display);
+    font-size: 1.05rem;
     white-space: nowrap;
+  }
+
+  .prices__cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 16px;
   }
 </style>

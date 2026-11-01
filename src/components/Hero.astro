@@ -3,113 +3,276 @@ import { studio } from '../data/site';
 ---
 
 <section class="hero" id="top">
-  <div class="hero__panel hero__panel--main">
-    <img
-      src="/images/lash-application.webp"
-      alt="Nadogradnja trepavica u Glow Beauty Studiju"
-      width="616"
-      height="860"
-      fetchpriority="high"
-    />
+  <div class="wrap hero__grid">
     <div class="hero__copy">
-      <p class="hero__eyebrow">Beauty studio · {studio.city}</p>
-      <h1 class="hero__title">Your glow,<br />our art.</h1>
-      <p class="hero__sub">Trepavice, obrve, nokti i spray tan – na Bulevaru Stup.</p>
-      <a class="btn btn--light" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
+      <p class="eyebrow">Beauty studio · {studio.city}</p>
+      <h1 class="hero__title">
+        Your Glow,
+        <em>Our Art.</em>
+      </h1>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="intro">
+        Trepavice, obrve, nokti i spray tan na jednom mjestu. Profesionalna usluga, kvalitetni
+        materijali i rezultati koji traju – u mirnom studiju na Bulevaru Stup.
+      </p>
+      <div class="hero__actions">
+        <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
+        <a class="link" href="#usluge">Naše usluge</a>
+      </div>
+      <dl class="hero__facts">
+        <div>
+          <dt>Lokacija</dt>
+          <dd>{studio.address}</dd>
+        </div>
+        <div>
+          <dt>Tretmani</dt>
+          <dd>5 usluga</dd>
+        </div>
+        <div>
+          <dt>Zajednica</dt>
+          <dd>{studio.followers} pratilaca</dd>
+        </div>
+      </dl>
     </div>
-  </div>
-  <div class="hero__panel">
-    <img
-      src="/images/nails-babyboomer.webp"
-      alt="Baby boomer manikir"
-      width="1100"
-      height="1404"
-      fetchpriority="high"
-    />
+
+    <div class="hero__visual">
+      <div class="hero__arch">
+        <img
+          src="/images/nails-babyboomer.webp"
+          alt="Baby boomer manikir urađen u Glow Beauty Studiju"
+          width="1100"
+          height="1404"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="hero__inset">
+        <img src="/images/brow-lift.webp" alt="Obrve nakon brow lift tretmana" width="656" height="950" />
+      </div>
+      <svg class="hero__badge" viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <path id="badge-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" />
+        </defs>
+        <circle cx="60" cy="60" r="59" />
+        <text>
+          <textPath href="#badge-circle">Your Glow · Our Art · Beauty Studio ·</textPath>
+        </text>
+        <text class="hero__badge-star" x="60" y="66" text-anchor="middle">✦</text>
+      </svg>
+    </div>
   </div>
 </section>
 
 <style>
   .hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: min(86vh, 760px);
-    min-height: 520px;
-    background: var(--espresso);
-  }
-
-  .hero__panel {
     position: relative;
     overflow: hidden;
+    padding-block: clamp(48px, 7vw, 96px) clamp(72px, 9vw, 120px);
+    background:
+      radial-gradient(55% 60% at 80% 40%, rgba(210, 178, 130, 0.18), transparent 70%),
+      var(--paper);
   }
 
-  .hero__panel img {
+  .hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: center;
+  }
+
+  .hero__copy {
+    display: grid;
+    justify-items: start;
+    gap: 26px;
+  }
+
+  .hero__title {
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: clamp(3.1rem, 6.2vw, 5.6rem);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+  }
+
+  .hero__title em {
+    display: block;
+    font-family: var(--serif);
+    font-size: 1.1em;
+    padding-left: 0.6em;
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px 32px;
+    margin-top: 6px;
+  }
+
+  .hero__facts {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 0;
+    margin: 22px 0 0;
+    padding-top: 26px;
+    border-top: 1px solid var(--line);
+  }
+
+  .hero__facts div {
+    padding-right: 28px;
+  }
+
+  .hero__facts div + div {
+    padding-left: 28px;
+    border-left: 1px solid var(--line);
+  }
+
+  .hero__facts dt {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .hero__facts dd {
+    margin: 4px 0 0;
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: 1.3rem;
+    line-height: 1.2;
+  }
+
+  .hero__visual {
+    position: relative;
+    justify-self: center;
+    width: min(100%, 470px);
+    padding: 0 0 36px 44px;
+  }
+
+  /* Tanki zlatni luk iza fotografije */
+  .hero__visual::before {
+    content: '';
     position: absolute;
-    inset: 0;
+    top: -18px;
+    right: -18px;
+    bottom: 54px;
+    left: 62px;
+    border: 1px solid var(--line-gold);
+    border-radius: 999px 999px 4px 4px;
+  }
+
+  .hero__arch {
+    position: relative;
+    aspect-ratio: 4 / 5.3;
+    overflow: hidden;
+    border-radius: 999px 999px 4px 4px;
+    box-shadow: 0 40px 80px -40px rgba(47, 31, 23, 0.45);
+  }
+
+  .hero__arch img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
-  .hero__panel--main::after {
-    content: '';
+  .hero__inset {
     position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(90deg, rgba(34, 21, 14, 0.62) 0%, rgba(34, 21, 14, 0.15) 70%),
-      linear-gradient(0deg, rgba(34, 21, 14, 0.55) 0%, rgba(34, 21, 14, 0) 55%);
+    left: 0;
+    bottom: 0;
+    width: 38%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border: 6px solid var(--paper);
+    border-radius: 999px 999px 4px 4px;
+    box-shadow: 0 24px 48px -24px rgba(47, 31, 23, 0.5);
   }
 
-  .hero__copy {
-    position: absolute;
-    left: clamp(24px, 5vw, 64px);
-    right: 24px;
-    bottom: clamp(36px, 7vw, 72px);
-    z-index: 1;
-    display: grid;
-    gap: 14px;
-    justify-items: start;
-    color: var(--cream);
+  .hero__inset img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 30%;
   }
 
-  .hero__eyebrow {
-    color: var(--gold);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
+  .hero__badge {
+    position: absolute;
+    top: 18%;
+    right: -46px;
+    width: 112px;
+    height: 112px;
+    animation: spin 28s linear infinite;
+  }
+
+  .hero__badge circle {
+    fill: var(--espresso);
+  }
+
+  .hero__badge text {
+    fill: var(--gold);
+    font-family: var(--sans);
+    font-size: 8.4px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
   }
 
-  .hero__title {
-    font-family: var(--serif);
-    font-size: clamp(3.2rem, 6.4vw, 5.8rem);
-    font-style: italic;
-    font-weight: 300;
-    line-height: 0.92;
-    letter-spacing: -0.01em;
+  .hero__badge .hero__badge-star {
+    font-size: 16px;
+    letter-spacing: 0;
   }
 
-  .hero__sub {
-    max-width: 30ch;
-    margin-bottom: 10px;
-    color: rgba(245, 238, 229, 0.85);
-    font-size: 14px;
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 
-  @media (max-width: 760px) {
-    .hero {
+  @media (prefers-reduced-motion: reduce) {
+    .hero__badge {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero__grid {
       grid-template-columns: 1fr;
-      height: auto;
-      min-height: 0;
     }
 
-    .hero__panel--main {
-      height: min(82vh, 640px);
-      min-height: 480px;
+    .hero__visual {
+      width: min(100%, 420px);
+      margin-top: 8px;
     }
 
-    .hero__panel:not(.hero__panel--main) {
-      display: none;
+    .hero__badge {
+      right: -8px;
+      width: 96px;
+      height: 96px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero__facts {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 18px;
+    }
+
+    .hero__facts div + div:nth-child(3) {
+      grid-column: span 2;
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .hero__visual {
+      padding-left: 28px;
+    }
+
+    .hero__visual::before {
+      right: -8px;
+      top: -10px;
     }
   }
 </style>
