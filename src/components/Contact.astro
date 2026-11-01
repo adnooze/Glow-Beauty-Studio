@@ -1,49 +1,35 @@
 ---
-import { nav, studio } from '../data/site';
+import { nav, services, studio } from '../data/site';
 import Icon from './Icon.astro';
+import Logo from './Logo.astro';
 
 const year = new Date().getFullYear();
 ---
 
-<section class="contact" id="kontakt">
-  <div class="wrap contact__grid">
-    <div class="reveal">
-      <p class="eyebrow">Rezervacije</p>
-      <h2 class="display">
-        <span>Rezerviši</span>
-        <span>svoj</span>
-        <em>termin</em>
-      </h2>
-      <p class="lead contact__lead">
-        Termine zakazujemo putem Instagram poruke ili telefonom. Javi nam se – odgovaramo brzo.
-      </p>
-      <div class="contact__actions">
-        <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Pošalji poruku</a>
-        <a class="btn btn--ghost" href={studio.phoneHref}>Pozovi</a>
-      </div>
+<section class="booking" id="kontakt">
+  <img class="booking__bg" src="/images/brow-lift.webp" alt="" loading="lazy" />
+  <div class="wrap booking__inner reveal">
+    <h2 class="booking__title">Rezerviši svoj trenutak</h2>
+    <ul class="booking__services">
+      {services.map((s) => <li>{s.title}</li>)}
+    </ul>
+    <div class="booking__actions">
+      <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Pošalji poruku</a>
+      <a class="btn btn--outline" href={studio.phoneHref}>Pozovi</a>
     </div>
 
-    <ul class="contact__list reveal">
+    <ul class="booking__info">
       <li>
-        <Icon name="pin" />
-        <span>
-          <small>Adresa</small>
-          <a href={studio.mapHref} target="_blank" rel="noopener">{studio.address}, {studio.city}</a>
-        </span>
+        <Icon name="pin" size={16} />
+        <a href={studio.mapHref} target="_blank" rel="noopener">{studio.address}, {studio.city}</a>
       </li>
       <li>
-        <Icon name="phone" />
-        <span>
-          <small>Telefon</small>
-          <a href={studio.phoneHref}>{studio.phone}</a>
-        </span>
+        <Icon name="phone" size={16} />
+        <a href={studio.phoneHref}>{studio.phone}</a>
       </li>
       <li>
-        <Icon name="instagram" />
-        <span>
-          <small>Instagram</small>
-          <a href={studio.instagram} target="_blank" rel="noopener">{studio.instagramHandle}</a>
-        </span>
+        <Icon name="instagram" size={16} />
+        <a href={studio.instagram} target="_blank" rel="noopener">{studio.instagramHandle}</a>
       </li>
     </ul>
   </div>
@@ -51,94 +37,117 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="wrap footer__inner">
-    <p class="footer__brand">
-      Glow <em>beauty studio</em>
-    </p>
+    <a href="#top" class="footer__brand" aria-label={`${studio.name} – na vrh`}>
+      <Logo tone="light" size="sm" />
+    </a>
     <nav aria-label="Footer navigacija">
       {nav.map((item) => <a href={item.href}>{item.label}</a>)}
     </nav>
-    <p class="footer__copy">© {year} {studio.name} · {studio.tagline}</p>
+    <p>© {year} {studio.name} · {studio.tagline}</p>
   </div>
 </footer>
 
 <style>
-  .contact {
+  .booking {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: clamp(560px, 70vw, 720px);
     padding-block: clamp(72px, 10vw, 120px);
-    background: var(--blush);
+    overflow: hidden;
+    background: var(--espresso);
+    color: var(--cream);
+    text-align: center;
   }
 
-  .contact__grid {
+  .booking__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+  }
+
+  .booking::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(70% 70% at 50% 50%, rgba(34, 21, 14, 0.55), rgba(34, 21, 14, 0.82)),
+      rgba(58, 36, 25, 0.25);
+  }
+
+  .booking__inner {
+    position: relative;
+    z-index: 1;
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 56px;
-    align-items: end;
+    justify-items: center;
+    gap: 26px;
   }
 
-  .contact .eyebrow {
-    margin-bottom: 18px;
-  }
-
-  .contact__lead {
-    max-width: 38ch;
-    margin-top: 32px;
-  }
-
-  .contact__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 26px;
-  }
-
-  .contact__list {
-    display: grid;
-    gap: 0;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .contact__list li {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 20px 0;
-    border-bottom: 1px solid var(--line);
-    color: var(--wine);
-  }
-
-  .contact__list li:first-child {
-    border-top: 1px solid var(--line);
-  }
-
-  .contact__list span {
-    display: grid;
-    gap: 2px;
-  }
-
-  .contact__list small {
-    color: var(--muted);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+  .booking__title {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
   }
 
-  .contact__list a {
-    color: var(--ink);
-    font-size: 17px;
-    font-weight: 500;
+  .booking__services {
+    display: grid;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(245, 238, 229, 0.9);
+  }
+
+  .booking__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .booking__info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px 36px;
+    margin: 28px 0 0;
+    padding: 26px 0 0;
+    border-top: 1px solid rgba(245, 238, 229, 0.2);
+    list-style: none;
+    font-size: 13px;
+  }
+
+  .booking__info li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gold);
+  }
+
+  .booking__info a {
+    color: var(--cream);
     transition: color 0.2s ease;
   }
 
-  .contact__list a:hover {
-    color: var(--wine);
+  .booking__info a:hover {
+    color: var(--gold);
   }
 
   .footer {
-    padding-block: 36px;
-    background: var(--ink);
-    color: rgba(255, 255, 255, 0.72);
+    padding-block: 32px;
+    background: var(--espresso-deep);
+    color: rgba(245, 238, 229, 0.6);
   }
 
   .footer__inner {
@@ -151,20 +160,7 @@ const year = new Date().getFullYear();
   }
 
   .footer__brand {
-    color: var(--white);
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-
-  .footer__brand em {
-    margin-left: 4px;
-    font-family: var(--serif);
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0;
-    text-transform: none;
+    display: flex;
   }
 
   .footer nav {
@@ -174,12 +170,6 @@ const year = new Date().getFullYear();
   }
 
   .footer a:hover {
-    color: var(--white);
-  }
-
-  @media (max-width: 860px) {
-    .contact__grid {
-      grid-template-columns: 1fr;
-    }
+    color: var(--gold);
   }
 </style>

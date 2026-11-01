@@ -16,14 +16,14 @@ export const studio = {
 };
 
 export const nav = [
+  { label: 'Radovi', href: '#radovi' },
   { label: 'Usluge', href: '#usluge' },
   { label: 'O nama', href: '#o-nama' },
-  { label: 'Radovi', href: '#radovi' },
   { label: 'Cjenovnik', href: '#cjenovnik' },
   { label: 'Kontakt', href: '#kontakt' },
 ];
 
-export const services = [
+export const services: { title: string; text: string; image: string; alt: string; focus?: string }[] = [
   {
     title: 'Nokti',
     text: 'Gel na prirodne nokte, nadogradnja, french, ombre i detalji za uredan, ženstven izgled.',
@@ -33,7 +33,7 @@ export const services = [
   {
     title: 'Trepavice',
     text: 'Nadogradnja trepavica – novi set, korekcija i skidanje, prilagođeno obliku oka.',
-    image: '/images/lash-application.webp',
+    image: '/images/price-lash-ext.webp',
     alt: 'Nadogradnja trepavica u toku',
   },
   {
@@ -47,6 +47,7 @@ export const services = [
     text: 'Ravnomjeran, prirodan ten za par minuta – classic ili rapid formula.',
     image: '/images/spray-tan.webp',
     alt: 'Preplanuli ten nakon spray tan tretmana',
+    focus: '22% center',
   },
   {
     title: 'Pedikir',
@@ -65,13 +66,22 @@ export const features = [
   { icon: 'pin', label: 'Bulevar Stup, Sarajevo' },
 ];
 
-export const portfolio = [
-  { image: '/images/nails-nude-french.webp', alt: 'Nude baza i bijeli french', caption: 'Nude baza, savršen french i visok sjaj.' },
-  { image: '/images/nails-babyboomer.webp', alt: 'Baby boomer nokti', caption: 'Baby boomer – nježan prelaz ružičaste u mliječno bijelu.' },
-  { image: '/images/brow-lift.webp', alt: 'Brow lift rezultat', caption: 'Brow lift – punije, urednije obrve.' },
-  { image: '/images/nails-red.webp', alt: 'Crveni gel lak', caption: 'Klasična crvena, uvijek u modi.' },
-  { image: '/images/nails-almond-french.webp', alt: 'Bademasti french nokti', caption: 'Elegancija je u detaljima.' },
-];
+export const marquee = ['manikir', 'nadogradnja trepavica', 'lash lift', 'brow lift', 'spray tan', 'pedikir', 'nadogradnja noktiju', 'french & ombre'];
+
+export const marqueeAlt = ['your glow, our art', 'rezervacije u DM', 'bulevar stup, sarajevo', '+387 60 304 7747'];
+
+export const portfolio = {
+  feature: {
+    image: '/images/nails-nude-french.webp',
+    alt: 'Nude baza i bijeli french',
+    caption: 'Nude baza, savršen french i visok sjaj – za nokte koji uvijek izgledaju uredno.',
+  },
+  items: [
+    { image: '/images/nails-red.webp', alt: 'Crveni gel lak', title: 'Klasična crvena', caption: 'Uvijek u modi.' },
+    { image: '/images/nails-almond-french.webp', alt: 'Bademasti french nokti', title: 'Almond french', caption: 'Elegancija je u detaljima.' },
+    { image: '/images/salon-nail-desk.webp', alt: 'Radni sto za manikir u studiju', title: 'Naš studio', caption: 'Mirno mjesto samo za tebe.' },
+  ],
+};
 
 export type PriceRow = { name: string; note?: string; price: string };
 

@@ -2,11 +2,13 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import Portfolio from '../components/Portfolio.astro';
 import Services from '../components/Services.astro';
 import About from '../components/About.astro';
-import Portfolio from '../components/Portfolio.astro';
 import Pricing from '../components/Pricing.astro';
 import Contact from '../components/Contact.astro';
+import { marquee, marqueeAlt } from '../data/site';
 ---
 
 <Base
@@ -16,9 +18,11 @@ import Contact from '../components/Contact.astro';
   <Header />
   <main>
     <Hero />
+    <Marquee items={marquee} />
+    <Portfolio />
+    <Marquee items={marqueeAlt} tone="mocha" />
     <Services />
     <About />
-    <Portfolio />
     <Pricing />
     <Contact />
   </main>

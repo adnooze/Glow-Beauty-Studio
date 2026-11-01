@@ -1,150 +1,163 @@
 ---
 import { portfolio, studio } from '../data/site';
 
-const [a, b, c, d, e] = portfolio;
+const { feature, items } = portfolio;
 ---
 
 <section class="work" id="radovi">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div>
-        <p class="eyebrow">Portfolio</p>
-        <h2 class="display">
-          <span>Naš rad</span>
-          <em>pravi rezultati</em>
-        </h2>
-      </div>
-      <div class="section-head__aside">
-        <p class="intro">
-          Svaka klijentica je jedinstvena. Ovo su neki od naših radova – urađeni
-          <strong>s pažnjom, preciznošću i strašću</strong>.
-        </p>
-        <div class="section-head__actions">
-          <a class="btn" href={studio.instagram} target="_blank" rel="noopener">Više na Instagramu</a>
-          <a class="link-arrow" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
-        </div>
-      </div>
-    </div>
+  <div class="wrap work__grid">
+    <figure class="work__feature reveal">
+      <img src={feature.image} alt={feature.alt} loading="lazy" />
+      <figcaption>
+        <span class="work__feature-title">Naš rad,<br />pravi rezultati</span>
+        <span class="work__feature-text">{feature.caption}</span>
+      </figcaption>
+    </figure>
 
-    <div class="work__grid">
-      <figure class="work__item work__item--1 reveal">
-        <img src={a.image} alt={a.alt} loading="lazy" />
-        <figcaption class="small">{a.caption}</figcaption>
-      </figure>
-      <figure class="work__item work__item--2 reveal">
-        <img src={b.image} alt={b.alt} loading="lazy" />
-      </figure>
-      <figure class="work__item work__item--3 reveal">
-        <img src={c.image} alt={c.alt} loading="lazy" />
-      </figure>
-      <figure class="work__item work__item--4 reveal">
-        <img src={d.image} alt={d.alt} loading="lazy" />
-        <figcaption class="small">{d.caption}</figcaption>
-      </figure>
-      <figure class="work__item work__item--5 reveal">
-        <figcaption class="small">{e.caption} Od elegantnog frencha do punijih obrva – svaki tretman prilagođen tebi.</figcaption>
-        <img src={e.image} alt={e.alt} loading="lazy" />
-      </figure>
+    <div class="work__side">
+      <p class="intro reveal">
+        Svaka klijentica je jedinstvena. Ovo su neki od naših radova – urađeni
+        <strong>s pažnjom, preciznošću i strašću</strong>.
+      </p>
+      <div class="work__items">
+        {
+          items.map((item, i) => (
+            <figure class="work__item reveal" style={`transition-delay:${i * 80}ms`}>
+              <img src={item.image} alt={item.alt} loading="lazy" />
+              <figcaption>
+                <span class="work__item-title">{item.title}</span>
+                <span class="small">{item.caption}</span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+      <a class="btn btn--dark reveal" href={studio.instagram} target="_blank" rel="noopener">Više na Instagramu</a>
     </div>
   </div>
 </section>
 
 <style>
   .work {
-    padding-block: clamp(72px, 10vw, 128px);
+    padding-block: clamp(56px, 8vw, 96px);
+    background: var(--cream);
   }
 
   .work__grid {
     display: grid;
-    grid-template-columns: 0.85fr 0.85fr 1.1fr 1.1fr 0.85fr;
-    gap: 6px;
-    align-items: start;
-    margin-top: clamp(48px, 7vw, 80px);
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr);
+    gap: clamp(24px, 4vw, 56px);
+    align-items: stretch;
+  }
+
+  .work__feature {
+    position: relative;
+    min-height: 460px;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .work__feature img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .work__feature::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(34, 21, 14, 0.7) 0%, rgba(34, 21, 14, 0) 55%);
+  }
+
+  .work__feature figcaption {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1;
+    display: grid;
+    gap: 10px;
+    color: var(--cream);
+  }
+
+  .work__feature-title {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 3.4vw, 3rem);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 0.95;
+  }
+
+  .work__feature-text {
+    max-width: 30ch;
+    font-size: 12px;
+    opacity: 0.85;
+  }
+
+  .work__side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .work__items {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
   }
 
   .work__item {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    display: grid;
+    gap: 12px;
     margin: 0;
   }
 
   .work__item img {
     width: 100%;
+    aspect-ratio: 4 / 4.4;
     object-fit: cover;
-    border-radius: 2px;
   }
 
   .work__item figcaption {
-    max-width: 22ch;
+    display: grid;
+    gap: 2px;
   }
 
-  .work__item--1 img {
-    aspect-ratio: 4 / 4.6;
+  .work__item-title {
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    font-style: italic;
+    line-height: 1.1;
   }
 
-  .work__item--1 figcaption {
-    margin-top: 90px;
-  }
-
-  .work__item--2 {
-    margin-top: 120px;
-  }
-
-  .work__item--2 img {
-    aspect-ratio: 3 / 4.6;
-  }
-
-  .work__item--3 img {
-    aspect-ratio: 3 / 4.4;
-  }
-
-  .work__item--4 img {
-    aspect-ratio: 1 / 1;
-  }
-
-  .work__item--4 figcaption {
-    margin-top: 140px;
-  }
-
-  .work__item--5 {
-    gap: 40px;
-  }
-
-  .work__item--5 img {
-    aspect-ratio: 1 / 1;
-  }
-
-  @media (max-width: 900px) {
+  @media (max-width: 860px) {
     .work__grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      grid-template-columns: 1fr;
     }
 
-    .work__item--1 figcaption,
-    .work__item--4 figcaption {
-      margin-top: 0;
+    .work__feature {
+      min-height: 0;
+      aspect-ratio: 4 / 5;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .work__items {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .work__item--2 {
-      margin-top: 48px;
-    }
-
-    .work__item--3 {
+    .work__item:last-child {
       grid-column: span 2;
-      order: -1;
     }
 
-    .work__item--3 img {
-      aspect-ratio: 4 / 3;
-    }
-
-    .work__item--5 {
-      grid-column: span 2;
-      gap: 14px;
-    }
-
-    .work__item--5 img {
+    .work__item:last-child img {
       aspect-ratio: 16 / 10;
     }
   }

@@ -1,0 +1,86 @@
+---
+interface Props {
+  items: string[];
+  tone?: 'dark' | 'mocha';
+}
+
+const { items, tone = 'dark' } = Astro.props;
+// Dvije identične trake jedna do druge – pomak za -50% vraća traku na početak bez skoka
+const loop = [...items, ...items, ...items, ...items];
+---
+
+<div class:list={['marquee', `marquee--${tone}`]} aria-label={items.join(', ')}>
+  <div class="marquee__track" aria-hidden="true">
+    {
+      [0, 1].map(() => (
+        <ul>
+          {loop.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    padding-block: 14px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .marquee--dark {
+    background: var(--espresso);
+    color: rgba(245, 238, 229, 0.85);
+  }
+
+  .marquee--mocha {
+    background: var(--mocha);
+    color: var(--cream);
+  }
+
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee 60s linear infinite;
+  }
+
+  .marquee ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .marquee li {
+    display: flex;
+    align-items: center;
+  }
+
+  .marquee li::after {
+    content: '✦';
+    margin-inline: 28px;
+    color: var(--gold);
+    font-size: 9px;
+  }
+
+  .marquee--mocha li::after {
+    color: var(--espresso);
+    opacity: 0.55;
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__track {
+      animation: none;
+    }
+  }
+</style>

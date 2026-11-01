@@ -1,12 +1,12 @@
 ---
 import { nav, studio } from '../data/site';
+import Logo from './Logo.astro';
 ---
 
 <header class="header">
   <div class="wrap header__inner">
-    <a href="#top" class="logo" aria-label={`${studio.name} – početna`}>
-      <span class="logo__mark">Glow</span>
-      <span class="logo__sub">beauty studio</span>
+    <a href="#top" class="header__logo" aria-label={`${studio.name} – početna`}>
+      <Logo tone="light" size="sm" />
     </a>
     <nav class="header__nav" aria-label="Glavna navigacija">
       {nav.map((item) => <a href={item.href}>{item.label}</a>)}
@@ -20,10 +20,8 @@ import { nav, studio } from '../data/site';
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
+    background: var(--espresso);
+    border-bottom: 1px solid rgba(210, 178, 130, 0.18);
   }
 
   .header__inner {
@@ -31,28 +29,11 @@ import { nav, studio } from '../data/site';
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    min-height: 68px;
+    min-height: 66px;
   }
 
-  .logo {
-    display: grid;
-    line-height: 1;
-  }
-
-  .logo__mark {
-    color: var(--ink);
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-  }
-
-  .logo__sub {
-    margin-top: 2px;
-    color: var(--wine);
-    font-family: var(--serif);
-    font-size: 13px;
-    font-style: italic;
+  .header__logo {
+    display: flex;
   }
 
   .header__nav {
@@ -65,17 +46,17 @@ import { nav, studio } from '../data/site';
   }
 
   .header__nav a {
-    color: var(--ink);
+    color: rgba(245, 238, 229, 0.82);
     transition: color 0.2s ease;
   }
 
   .header__nav a:hover {
-    color: var(--wine);
+    color: var(--gold);
   }
 
   .header__cta {
-    min-height: 40px;
-    padding: 0 22px;
+    min-height: 36px;
+    padding: 0 20px;
   }
 
   @media (max-width: 860px) {

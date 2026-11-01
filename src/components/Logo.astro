@@ -1,0 +1,73 @@
+---
+// Wordmark po uzoru na njihove Instagram postere: "GLOW" u tankom serifu,
+// ispod "BEAUTY STUDIO" između dvije linije.
+interface Props {
+  tone?: 'dark' | 'light';
+  size?: 'sm' | 'md';
+}
+
+const { tone = 'dark', size = 'md' } = Astro.props;
+---
+
+<span class:list={['logo', `logo--${tone}`, `logo--${size}`]}>
+  <span class="logo__word">Glow</span>
+  <span class="logo__sub">Beauty Studio</span>
+</span>
+
+<style>
+  .logo {
+    display: inline-grid;
+    justify-items: center;
+    line-height: 1;
+  }
+
+  .logo__word {
+    padding-left: 0.32em;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+
+  .logo__sub {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 3px;
+    font-family: var(--sans);
+    font-size: 7.5px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+
+  .logo__sub::before,
+  .logo__sub::after {
+    content: '';
+    width: 16px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.7;
+  }
+
+  .logo--sm .logo__word {
+    font-size: 24px;
+  }
+
+  .logo--dark {
+    color: var(--espresso);
+  }
+
+  .logo--dark .logo__sub {
+    color: var(--accent-dark);
+  }
+
+  .logo--light {
+    color: var(--cream);
+  }
+
+  .logo--light .logo__sub {
+    color: var(--gold);
+  }
+</style>
