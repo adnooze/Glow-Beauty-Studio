@@ -1,278 +1,192 @@
 ---
-import { studio } from '../data/site';
+import { services, studio } from '../data/site';
 ---
 
 <section class="hero" id="top">
-  <div class="wrap hero__grid">
-    <div class="hero__copy">
-      <p class="eyebrow">Beauty studio · {studio.city}</p>
-      <h1 class="hero__title">
-        Your Glow,
-        <em>Our Art.</em>
-      </h1>
-      <span class="rule" aria-hidden="true"></span>
-      <p class="intro">
-        Trepavice, obrve, nokti i spray tan na jednom mjestu. Profesionalna usluga, kvalitetni
-        materijali i rezultati koji traju – u mirnom studiju na Bulevaru Stup.
-      </p>
-      <div class="hero__actions">
-        <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
-        <a class="link" href="#usluge">Naše usluge</a>
-      </div>
-      <dl class="hero__facts">
-        <div>
-          <dt>Lokacija</dt>
-          <dd>{studio.address}</dd>
-        </div>
-        <div>
-          <dt>Tretmani</dt>
-          <dd>5 usluga</dd>
-        </div>
-        <div>
-          <dt>Zajednica</dt>
-          <dd>{studio.followers} pratilaca</dd>
-        </div>
-      </dl>
-    </div>
+  <div class="hero__bg" aria-hidden="true">
+    <img src="/images/hero-glow.webp" alt="" width="2400" height="1350" fetchpriority="high" />
+  </div>
+  <div class="hero__grain" aria-hidden="true"></div>
 
-    <div class="hero__visual">
-      <div class="hero__arch">
-        <img
-          src="/images/nails-babyboomer.webp"
-          alt="Baby boomer manikir urađen u Glow Beauty Studiju"
-          width="1100"
-          height="1404"
-          fetchpriority="high"
-        />
-      </div>
-      <div class="hero__inset">
-        <img src="/images/brow-lift.webp" alt="Obrve nakon brow lift tretmana" width="656" height="950" />
-      </div>
-      <svg class="hero__badge" viewBox="0 0 120 120" aria-hidden="true">
-        <defs>
-          <path id="badge-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" />
-        </defs>
-        <circle cx="60" cy="60" r="59" />
-        <text>
-          <textPath href="#badge-circle">Your Glow · Our Art · Beauty Studio ·</textPath>
-        </text>
-        <text class="hero__badge-star" x="60" y="66" text-anchor="middle">✦</text>
-      </svg>
+  <div class="wrap hero__content">
+    <p class="hero__kicker">Glow Beauty Studio — {studio.city}</p>
+    <h1 class="hero__title">
+      Your glow,<br />
+      <em>our art.</em>
+    </h1>
+    <p class="hero__lead">
+      Spray tan koji sija, trepavice i obrve koje otvaraju pogled, nokti za koje te pitaju gdje si ih
+      radila.
+    </p>
+    <div class="hero__actions">
+      <a class="btn btn--cream" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
+      <a class="btn btn--line-light" href="#cjenovnik">Cjenovnik</a>
     </div>
+  </div>
+
+  <div class="wrap hero__bar">
+    <ul>
+      {services.map((s) => <li>{s.title}</li>)}
+    </ul>
+    <p>{studio.address}, {studio.city}</p>
   </div>
 </section>
 
 <style>
   .hero {
     position: relative;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-height: 100svh;
     overflow: hidden;
-    padding-block: clamp(48px, 7vw, 96px) clamp(72px, 9vw, 120px);
+    background: #120b08;
+    color: var(--cream);
+    isolation: isolate;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+
+  .hero__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 50%;
+    animation: drift 24s ease-in-out infinite alternate;
+  }
+
+  /* Topli brončani overlay: tamno lijevo za tekst, zlatno svjetlo preko kože */
+  .hero__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
     background:
-      radial-gradient(55% 60% at 80% 40%, rgba(210, 178, 130, 0.18), transparent 70%),
-      var(--paper);
+      radial-gradient(60% 70% at 72% 45%, rgba(214, 150, 78, 0.28), transparent 70%),
+      linear-gradient(90deg, rgba(18, 11, 8, 0.88) 0%, rgba(18, 11, 8, 0.55) 38%, rgba(18, 11, 8, 0.05) 75%),
+      linear-gradient(0deg, rgba(18, 11, 8, 0.85) 0%, rgba(18, 11, 8, 0) 34%),
+      linear-gradient(180deg, rgba(18, 11, 8, 0.6) 0%, rgba(18, 11, 8, 0) 22%);
+    mix-blend-mode: normal;
   }
 
-  .hero__grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    gap: clamp(40px, 6vw, 96px);
-    align-items: center;
+  /* Filmsko zrno – daje fotografski, a ne digitalni osjećaj */
+  .hero__grain {
+    position: absolute;
+    inset: -50%;
+    z-index: -1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.12;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    animation: grain 1.2s steps(4) infinite;
   }
 
-  .hero__copy {
+  .hero__content {
     display: grid;
+    align-content: end;
     justify-items: start;
     gap: 26px;
+    padding-top: 140px;
+    padding-bottom: clamp(40px, 6vw, 72px);
+  }
+
+  .hero__kicker {
+    color: rgba(246, 239, 230, 0.75);
+    font-size: 12px;
+    letter-spacing: 0.08em;
   }
 
   .hero__title {
-    color: var(--ink);
     font-family: var(--display);
-    font-size: clamp(3.1rem, 6.2vw, 5.6rem);
+    font-size: clamp(3.4rem, 9.5vw, 9rem);
     font-weight: 400;
-    line-height: 0.95;
-    letter-spacing: -0.015em;
+    line-height: 0.88;
+    letter-spacing: -0.02em;
   }
 
   .hero__title em {
-    display: block;
     font-family: var(--serif);
     font-size: 1.1em;
-    padding-left: 0.6em;
-    color: var(--accent);
     font-style: italic;
     font-weight: 300;
+    color: #e3c08e;
+  }
+
+  .hero__lead {
+    max-width: 40ch;
+    color: rgba(246, 239, 230, 0.82);
+    font-size: 16px;
+    line-height: 1.65;
   }
 
   .hero__actions {
     display: flex;
     flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .hero__bar {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 18px 32px;
-    margin-top: 6px;
+    justify-content: space-between;
+    gap: 12px 32px;
+    padding-block: 22px;
+    border-top: 1px solid rgba(246, 239, 230, 0.18);
+    color: rgba(246, 239, 230, 0.7);
+    font-size: 12px;
+    letter-spacing: 0.06em;
   }
 
-  .hero__facts {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    gap: 0;
-    margin: 22px 0 0;
-    padding-top: 26px;
-    border-top: 1px solid var(--line);
+  .hero__bar ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
-  .hero__facts div {
-    padding-right: 28px;
-  }
-
-  .hero__facts div + div {
-    padding-left: 28px;
-    border-left: 1px solid var(--line);
-  }
-
-  .hero__facts dt {
-    color: var(--muted);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-  }
-
-  .hero__facts dd {
-    margin: 4px 0 0;
-    color: var(--ink);
-    font-family: var(--display);
-    font-size: 1.3rem;
-    line-height: 1.2;
-  }
-
-  .hero__visual {
-    position: relative;
-    justify-self: center;
-    width: min(100%, 470px);
-    padding: 0 0 36px 44px;
-  }
-
-  /* Tanki zlatni luk iza fotografije */
-  .hero__visual::before {
-    content: '';
-    position: absolute;
-    top: -18px;
-    right: -18px;
-    bottom: 54px;
-    left: 62px;
-    border: 1px solid var(--line-gold);
-    border-radius: 999px 999px 4px 4px;
-  }
-
-  .hero__arch {
-    position: relative;
-    aspect-ratio: 4 / 5.3;
-    overflow: hidden;
-    border-radius: 999px 999px 4px 4px;
-    box-shadow: 0 40px 80px -40px rgba(47, 31, 23, 0.45);
-  }
-
-  .hero__arch img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .hero__inset {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 38%;
-    aspect-ratio: 3 / 4;
-    overflow: hidden;
-    border: 6px solid var(--paper);
-    border-radius: 999px 999px 4px 4px;
-    box-shadow: 0 24px 48px -24px rgba(47, 31, 23, 0.5);
-  }
-
-  .hero__inset img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 60% 30%;
-  }
-
-  .hero__badge {
-    position: absolute;
-    top: 18%;
-    right: -46px;
-    width: 112px;
-    height: 112px;
-    animation: spin 28s linear infinite;
-  }
-
-  .hero__badge circle {
-    fill: var(--espresso);
-  }
-
-  .hero__badge text {
-    fill: var(--gold);
-    font-family: var(--sans);
-    font-size: 8.4px;
-    font-weight: 500;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-  }
-
-  .hero__badge .hero__badge-star {
-    font-size: 16px;
-    letter-spacing: 0;
-  }
-
-  @keyframes spin {
+  @keyframes drift {
+    from {
+      transform: scale(1.04) translate3d(0, 0, 0);
+    }
     to {
-      transform: rotate(360deg);
+      transform: scale(1.12) translate3d(-1.5%, -1%, 0);
     }
   }
 
+  @keyframes grain {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-5%, 3%); }
+    50% { transform: translate(4%, -4%); }
+    75% { transform: translate(-3%, -2%); }
+    100% { transform: translate(2%, 5%); }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .hero__badge {
+    .hero__bg img,
+    .hero__grain {
       animation: none;
     }
   }
 
-  @media (max-width: 900px) {
-    .hero__grid {
-      grid-template-columns: 1fr;
+  @media (max-width: 760px) {
+    .hero__bg img {
+      object-position: 55% 50%;
     }
 
-    .hero__visual {
-      width: min(100%, 420px);
-      margin-top: 8px;
+    .hero__bg::after {
+      background:
+        radial-gradient(80% 50% at 60% 35%, rgba(214, 150, 78, 0.25), transparent 70%),
+        linear-gradient(0deg, rgba(18, 11, 8, 0.92) 0%, rgba(18, 11, 8, 0.5) 48%, rgba(18, 11, 8, 0.12) 100%);
     }
 
-    .hero__badge {
-      right: -8px;
-      width: 96px;
-      height: 96px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hero__facts {
-      grid-template-columns: 1fr 1fr;
-      row-gap: 18px;
-    }
-
-    .hero__facts div + div:nth-child(3) {
-      grid-column: span 2;
-      padding-left: 0;
-      border-left: 0;
-    }
-
-    .hero__visual {
-      padding-left: 28px;
-    }
-
-    .hero__visual::before {
-      right: -8px;
-      top: -10px;
+    .hero__bar ul {
+      display: none;
     }
   }
 </style>

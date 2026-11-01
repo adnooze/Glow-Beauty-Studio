@@ -49,9 +49,8 @@ export const services: { title: string; text: string; price: string; image: stri
     title: 'Spray tan',
     text: 'Ravnomjeran, prirodan ten za par minuta – classic ili rapid formula.',
     price: 'Classic 50 KM',
-    image: '/images/spray-tan.webp',
-    alt: 'Preplanuli ten nakon spray tan tretmana',
-    focus: '24% 40%',
+    image: '/images/spray-tan-shoulder.webp',
+    alt: 'Preplanulo rame nakon spray tan tretmana',
   },
   {
     title: 'Pedikir',

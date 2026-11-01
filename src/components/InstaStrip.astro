@@ -1,0 +1,131 @@
+---
+import { studio } from '../data/site';
+import Icon from './Icon.astro';
+
+const tiles = [
+  { src: '/images/ig-glow-sign.webp', alt: 'Svijetleći znak u studiju i french manikir' },
+  { src: '/images/ig-babyboomer.webp', alt: 'Baby boomer nokti i zlatni nakit' },
+  { src: '/images/ig-brows.webp', alt: 'Obrve nakon brow lift tretmana' },
+  { src: '/images/ig-lashes.webp', alt: 'Nadogradnja trepavica u toku' },
+  { src: '/images/ig-red.webp', alt: 'Crveni gel lak' },
+  { src: '/images/ig-salon.webp', alt: 'Radno mjesto za manikir u studiju' },
+];
+---
+
+<section class="insta" aria-label="Instagram">
+  <ul class="insta__tiles">
+    {
+      tiles.map((t) => (
+        <li>
+          <a href={studio.instagram} target="_blank" rel="noopener">
+            <img src={t.src} alt={t.alt} loading="lazy" width="560" height="560" />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <a class="insta__card" href={studio.instagram} target="_blank" rel="noopener">
+    <Icon name="instagram" size={22} />
+    <span class="insta__handle">{studio.instagramHandle}</span>
+    <span class="insta__text">Najnoviji radovi svaki dan na našem profilu</span>
+    <span class="insta__cta">Prati nas</span>
+  </a>
+</section>
+
+<style>
+  .insta {
+    position: relative;
+    display: grid;
+    place-items: center;
+    background: var(--espresso-deep);
+  }
+
+  .insta__tiles {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .insta__tiles li {
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+
+  .insta__tiles a {
+    display: block;
+    height: 100%;
+  }
+
+  .insta__tiles img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.92);
+    transition: transform 1s ease, filter 0.4s ease, opacity 0.4s ease;
+  }
+
+  .insta__tiles a:hover img {
+    transform: scale(1.06);
+    filter: saturate(1.05);
+  }
+
+  .insta__card {
+    position: absolute;
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    padding: 30px 42px;
+    background: var(--paper);
+    color: var(--ink);
+    text-align: center;
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+    transition: transform 0.4s ease;
+  }
+
+  .insta__card:hover {
+    transform: translateY(-4px);
+  }
+
+  .insta__card :global(svg) {
+    color: var(--accent);
+  }
+
+  .insta__handle {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  .insta__text {
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  .insta__cta {
+    margin-top: 8px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--accent);
+    color: var(--accent-dark);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 760px) {
+    .insta__tiles {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .insta__card {
+      padding: 22px 26px;
+    }
+
+    .insta__handle {
+      font-size: 1.3rem;
+    }
+  }
+</style>

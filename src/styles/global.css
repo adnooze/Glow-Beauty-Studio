@@ -6,7 +6,6 @@
   --accent: #9a7142;
   --accent-dark: #7f5a32;
   --gold: #d2b282;
-  --gold-grad: linear-gradient(110deg, #a47a45 0%, #d9bb88 28%, #f0dfbd 50%, #c9a26b 72%, #a47a45 100%);
   --espresso: #2f1f17;
   --espresso-deep: #1f140f;
   --cream: #f6efe6;
@@ -75,33 +74,23 @@ p {
   padding-inline: var(--gutter);
 }
 
-/* Mala oznaka iznad naslova: "✦ NAŠE USLUGE" */
+/* Mala oznaka iznad naslova */
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
   color: var(--accent-dark);
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-.eyebrow::before {
-  content: '✦';
-  color: var(--accent);
-  font-size: 9px;
-  letter-spacing: 0;
-}
-
-/* Naslov sekcije: krupni serif, jedna riječ u italic zlatnoj */
+/* Naslov sekcije: krupni serif, jedna riječ u italicu */
 .title {
   color: var(--ink);
   font-family: var(--display);
-  font-size: clamp(2.2rem, 3.9vw, 3.3rem);
+  font-size: clamp(2.4rem, 4.6vw, 4rem);
   font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -0.005em;
+  line-height: 1;
+  letter-spacing: -0.015em;
 }
 
 .title em {
@@ -112,30 +101,35 @@ p {
   font-weight: 300;
 }
 
-/* Centrirano zaglavlje sekcije */
+/* Zaglavlje sekcije: naslov lijevo, kratki uvod desno */
 .head {
   display: grid;
-  justify-items: center;
-  gap: 18px;
-  max-width: 640px;
-  margin: 0 auto clamp(48px, 6vw, 72px);
-  text-align: center;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 18px clamp(32px, 6vw, 96px);
+  align-items: end;
+  margin-bottom: clamp(44px, 6vw, 72px);
 }
 
-.head .intro {
-  margin-inline: auto;
+.head > .eyebrow {
+  grid-column: 1 / -1;
 }
 
-.rule {
-  width: 64px;
-  height: 1px;
-  background: var(--gold-grad);
-  border: 0;
-  margin: 0;
+.head > .intro {
+  justify-self: end;
+}
+
+@media (max-width: 760px) {
+  .head {
+    grid-template-columns: 1fr;
+  }
+
+  .head > .intro {
+    justify-self: start;
+  }
 }
 
 .intro {
-  max-width: 46ch;
+  max-width: 44ch;
   color: var(--text);
   font-size: 15.5px;
   line-height: 1.75;
@@ -147,60 +141,63 @@ p {
   line-height: 1.55;
 }
 
-/* Dugmad: zlatna pilula i tanka varijanta */
+/* Dugmad: puna espresso, krem za tamne podloge i tanke varijante */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 48px;
-  padding: 0 32px;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  background: var(--gold-grad);
-  background-size: 220% 100%;
-  background-position: 0% 50%;
-  color: var(--espresso-deep);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  min-height: 50px;
+  padding: 0 30px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   white-space: nowrap;
-  box-shadow: 0 10px 24px -14px rgba(127, 90, 50, 0.8);
-  transition: background-position 0.7s ease, background-color 0.25s ease, color 0.25s ease,
-    border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
 .btn:hover {
-  background-position: 100% 50%;
-  box-shadow: 0 14px 28px -14px rgba(127, 90, 50, 0.9);
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+
+.btn--cream {
+  border-color: var(--cream);
+  background: var(--cream);
+  color: var(--espresso);
+}
+
+.btn--cream:hover {
+  border-color: #e3c08e;
+  background: #e3c08e;
+  color: var(--espresso-deep);
 }
 
 .btn--line {
-  border-color: var(--ink);
   background: transparent;
   color: var(--ink);
-  box-shadow: none;
 }
 
 .btn--line:hover {
+  border-color: var(--ink);
   background: var(--ink);
   color: var(--cream);
-  box-shadow: none;
 }
 
 .btn--line-light {
   border-color: rgba(246, 239, 230, 0.55);
   background: transparent;
   color: var(--cream);
-  box-shadow: none;
 }
 
 .btn--line-light:hover {
-  background: var(--cream);
   border-color: var(--cream);
+  background: var(--cream);
   color: var(--espresso);
-  box-shadow: none;
 }
 
 .btn:focus-visible,

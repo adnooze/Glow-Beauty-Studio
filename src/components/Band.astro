@@ -1,0 +1,194 @@
+---
+// Sekcija preko cijele širine: fotografija u pozadini, topli overlay i tekst.
+// Služi da razbije stranicu između običnih sekcija.
+interface Props {
+  image: string;
+  focus?: string;
+  align?: 'left' | 'right';
+  kicker: string;
+  title: string;
+  titleEm: string;
+  text: string;
+  ctaLabel: string;
+  ctaHref: string;
+  external?: boolean;
+}
+
+const {
+  image,
+  focus = 'center',
+  align = 'left',
+  kicker,
+  title,
+  titleEm,
+  text,
+  ctaLabel,
+  ctaHref,
+  external = false,
+} = Astro.props;
+---
+
+<section class:list={['band', `band--${align}`]} data-band>
+  <div class="band__bg" aria-hidden="true">
+    <img src={image} alt="" loading="lazy" style={`object-position:${focus}`} />
+  </div>
+  <div class="band__grain" aria-hidden="true"></div>
+  <div class="wrap band__inner">
+    <div class="band__copy reveal">
+      <p class="band__kicker">{kicker}</p>
+      <h2 class="band__title">{title} <em>{titleEm}</em></h2>
+      <p class="band__text">{text}</p>
+      <a
+        class="btn btn--line-light"
+        href={ctaHref}
+        {...external ? { target: '_blank', rel: 'noopener' } : {}}
+      >
+        {ctaLabel}
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Lagani parallax: slika se pomjera sporije od stranice
+  const bands = [...document.querySelectorAll<HTMLElement>('[data-band]')];
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (bands.length && !still) {
+    let ticking = false;
+    const update = () => {
+      const vh = window.innerHeight;
+      for (const band of bands) {
+        const r = band.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) continue;
+        const progress = (r.top + r.height / 2 - vh / 2) / vh;
+        band.style.setProperty('--shift', `${(progress * -60).toFixed(1)}px`);
+      }
+      ticking = false;
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true },
+    );
+    update();
+  }
+</script>
+
+<style>
+  .band {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: clamp(520px, 78vh, 760px);
+    overflow: hidden;
+    background: #120b08;
+    color: var(--cream);
+    isolation: isolate;
+  }
+
+  .band__bg {
+    position: absolute;
+    inset: -70px 0;
+    z-index: -2;
+    transform: translate3d(0, var(--shift, 0px), 0);
+    will-change: transform;
+  }
+
+  .band__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .band__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .band--left .band__bg::after {
+    background:
+      radial-gradient(50% 70% at 70% 50%, rgba(214, 150, 78, 0.18), transparent 70%),
+      linear-gradient(90deg, rgba(18, 11, 8, 0.86) 0%, rgba(18, 11, 8, 0.5) 42%, rgba(18, 11, 8, 0.1) 80%);
+  }
+
+  .band--right .band__bg::after {
+    background:
+      radial-gradient(50% 70% at 30% 45%, rgba(214, 150, 78, 0.22), transparent 70%),
+      linear-gradient(270deg, rgba(18, 11, 8, 0.9) 0%, rgba(18, 11, 8, 0.6) 40%, rgba(18, 11, 8, 0.2) 80%);
+  }
+
+  .band__grain {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.1;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  .band__inner {
+    display: flex;
+    padding-block: clamp(72px, 10vw, 120px);
+  }
+
+  .band--right .band__inner {
+    justify-content: flex-end;
+  }
+
+  .band__copy {
+    display: grid;
+    justify-items: start;
+    gap: 22px;
+    max-width: 520px;
+  }
+
+  .band__kicker {
+    color: rgba(246, 239, 230, 0.72);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+
+  .band__title {
+    font-family: var(--display);
+    font-size: clamp(2.6rem, 5.6vw, 4.8rem);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+  }
+
+  .band__title em {
+    display: block;
+    color: #e3c08e;
+    font-family: var(--serif);
+    font-size: 1.1em;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .band__text {
+    max-width: 38ch;
+    color: rgba(246, 239, 230, 0.82);
+    font-size: 15.5px;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 760px) {
+    .band--left .band__bg::after,
+    .band--right .band__bg::after {
+      background:
+        radial-gradient(80% 50% at 50% 30%, rgba(214, 150, 78, 0.2), transparent 70%),
+        linear-gradient(0deg, rgba(18, 11, 8, 0.9) 0%, rgba(18, 11, 8, 0.55) 55%, rgba(18, 11, 8, 0.3) 100%);
+    }
+
+    .band {
+      align-items: end;
+    }
+  }
+</style>

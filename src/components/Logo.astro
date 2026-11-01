@@ -2,7 +2,7 @@
 // Wordmark po uzoru na njihove Instagram postere: "GLOW" u tankom serifu,
 // ispod "BEAUTY STUDIO" između dvije linije.
 interface Props {
-  tone?: 'dark' | 'light';
+  tone?: 'dark' | 'light' | 'inherit';
   size?: 'sm' | 'md';
 }
 
@@ -69,5 +69,10 @@ const { tone = 'dark', size = 'md' } = Astro.props;
 
   .logo--light .logo__sub {
     color: var(--gold);
+  }
+
+  /* Boju preuzima od roditelja (npr. zaglavlje koje mijenja boju pri skrolanju) */
+  .logo--inherit .logo__sub {
+    opacity: 0.75;
   }
 </style>

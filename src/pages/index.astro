@@ -4,6 +4,8 @@ import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import Marquee from '../components/Marquee.astro';
 import Services from '../components/Services.astro';
+import Band from '../components/Band.astro';
+import InstaStrip from '../components/InstaStrip.astro';
 import Portfolio from '../components/Portfolio.astro';
 import About from '../components/About.astro';
 import Pricing from '../components/Pricing.astro';
@@ -20,8 +22,19 @@ import { marquee } from '../data/site';
     <Hero />
     <Marquee items={marquee} />
     <Services />
+    <Band
+      image="/images/band-jewels.webp"
+      focus="60% 50%"
+      kicker="Manikir"
+      title="Elegancija je"
+      titleEm="u detaljima."
+      text="Baby boomer, nude french ili klasična crvena – uredan oblik i sjaj koji traje."
+      ctaLabel="Pogledaj radove"
+      ctaHref="#radovi"
+    />
     <Portfolio />
     <About />
+    <InstaStrip />
     <Pricing />
     <Contact />
   </main>

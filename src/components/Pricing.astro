@@ -1,42 +1,52 @@
 ---
 import { pricing, studio } from '../data/site';
+import Logo from './Logo.astro';
+
+const numerals = ['I', 'II', 'III', 'IV', 'V', 'VI'];
 ---
 
 <section class="prices" id="cjenovnik">
   <div class="wrap">
-    <header class="head reveal">
-      <p class="eyebrow">Cjenovnik</p>
-      <h2 class="title">Naše cijene, <em>bez iznenađenja</em></h2>
-      <span class="rule" aria-hidden="true"></span>
-      <p class="intro">Profesionalna usluga i kvalitetni materijali – po cijenama koje znaš unaprijed.</p>
-    </header>
+    <article class="menu reveal">
+      <header class="menu__head">
+        <Logo />
+        <h2 class="menu__title">Cjenovnik</h2>
+        <p class="menu__sub">Your Glow, Our Art</p>
+      </header>
 
-    <div class="prices__menu">
-      {
-        pricing.map((group) => (
-          <article class="price-group reveal">
-            <h3>{group.title}</h3>
-            <ul>
-              {group.rows.map((row) => (
-                <li>
-                  <span class="price-group__name">
-                    {row.name}
-                    {row.note && <small>{row.note}</small>}
-                  </span>
-                  <span class="price-group__dots" aria-hidden="true" />
-                  <span class="price-group__price">{row.price}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))
-      }
-    </div>
+      <div class="menu__body">
+        {
+          pricing.map((group, i) => (
+            <section class="menu__group">
+              <h3>
+                <span class="menu__num">{numerals[i]}</span>
+                {group.title}
+              </h3>
+              <ul>
+                {group.rows.map((row) => (
+                  <li>
+                    <span class="menu__name">
+                      {row.name}
+                      {row.note && <em>{row.note}</em>}
+                    </span>
+                    <span class="menu__line" aria-hidden="true" />
+                    <span class="menu__price">{row.price}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
 
-    <div class="prices__cta reveal">
-      <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
-      <a class="btn btn--line-light" href={studio.phoneHref}>Pozovi {studio.phone}</a>
-    </div>
+      <footer class="menu__foot">
+        <p>Sve cijene su izražene u konvertibilnim markama.</p>
+        <div class="menu__actions">
+          <a class="btn" href={studio.bookingHref} target="_blank" rel="noopener">Rezerviši termin</a>
+          <a class="btn btn--line" href={studio.phoneHref}>{studio.phone}</a>
+        </div>
+      </footer>
+    </article>
   </div>
 </section>
 
@@ -44,94 +54,172 @@ import { pricing, studio } from '../data/site';
   .prices {
     padding-block: var(--section);
     background:
-      radial-gradient(50% 40% at 50% 0%, rgba(210, 178, 130, 0.14), transparent 70%),
+      radial-gradient(60% 50% at 50% 0%, rgba(210, 178, 130, 0.16), transparent 70%),
       var(--espresso);
-    color: var(--cream);
   }
 
-  .prices .eyebrow,
-  .prices .eyebrow::before {
-    color: var(--gold);
+  /* Krem kartica s dvostrukim zlatnim okvirom – kao štampani meni */
+  .menu {
+    position: relative;
+    max-width: 1040px;
+    margin-inline: auto;
+    padding: clamp(40px, 6vw, 80px) clamp(24px, 6vw, 88px);
+    background: var(--paper);
+    color: var(--ink);
+    outline: 1px solid rgba(164, 122, 69, 0.55);
+    outline-offset: -14px;
+    box-shadow: 0 50px 100px -50px rgba(0, 0, 0, 0.7);
   }
 
-  .prices .title {
-    color: var(--cream);
+  .menu::before {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(164, 122, 69, 0.25);
+    pointer-events: none;
   }
 
-  .prices .title em {
-    color: var(--gold);
+  .menu__head {
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    margin-bottom: clamp(40px, 5vw, 64px);
+    text-align: center;
   }
 
-  .prices .intro {
-    color: rgba(246, 239, 230, 0.72);
+  .menu__title {
+    margin-top: 18px;
+    font-family: var(--display);
+    font-size: clamp(2.4rem, 4.6vw, 3.6rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
-  .prices__menu {
-    columns: 2 380px;
-    column-gap: clamp(48px, 7vw, 104px);
-  }
-
-  .price-group {
-    break-inside: avoid;
-    margin-bottom: 52px;
-  }
-
-  .price-group h3 {
-    padding-bottom: 14px;
-    margin-bottom: 18px;
-    border-bottom: 1px solid rgba(210, 178, 130, 0.3);
-    color: var(--gold);
+  .menu__sub {
+    color: var(--accent);
     font-family: var(--serif);
-    font-size: 1.9rem;
+    font-size: 1.35rem;
     font-style: italic;
     font-weight: 300;
+  }
+
+  .menu__body {
+    columns: 2 340px;
+    column-gap: clamp(40px, 6vw, 88px);
+    column-rule: 1px solid var(--line);
+  }
+
+  .menu__group {
+    break-inside: avoid;
+    margin-bottom: 44px;
+  }
+
+  .menu__group h3 {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.85rem;
+    font-style: italic;
+    font-weight: 400;
     line-height: 1.1;
   }
 
-  .price-group ul {
+  .menu__num {
+    min-width: 2.2em;
+    color: var(--accent);
+    font-family: var(--display);
+    font-size: 0.55em;
+    font-style: normal;
+    letter-spacing: 0.12em;
+  }
+
+  .menu__group ul {
     display: grid;
-    gap: 14px;
+    gap: 16px;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .price-group li {
+  .menu__group li {
     display: flex;
     align-items: baseline;
-    gap: 12px;
-    font-size: 14px;
+    gap: 14px;
   }
 
-  .price-group__name {
+  .menu__name {
     display: grid;
-    color: var(--cream);
+    gap: 1px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
-  .price-group__name small {
-    color: rgba(246, 239, 230, 0.5);
-    font-size: 11.5px;
+  .menu__name em {
+    color: var(--text);
+    font-family: var(--serif);
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
   }
 
-  .price-group__dots {
+  .menu__line {
     flex: 1;
-    min-width: 20px;
-    border-bottom: 1px dotted rgba(210, 178, 130, 0.4);
+    min-width: 18px;
+    height: 1px;
+    background: var(--line);
     transform: translateY(-4px);
   }
 
-  .price-group__price {
-    color: var(--cream);
+  .menu__price {
     font-family: var(--display);
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     white-space: nowrap;
   }
 
-  .prices__cta {
+  .menu__foot {
+    display: grid;
+    justify-items: center;
+    gap: 22px;
+    margin-top: 12px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+
+  .menu__foot p {
+    color: var(--muted);
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-style: italic;
+  }
+
+  .menu__actions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 14px;
-    margin-top: 16px;
+    gap: 12px;
+  }
+
+  @media (max-width: 760px) {
+    .menu__body {
+      column-rule: none;
+    }
+
+    .menu::before {
+      inset: 12px;
+    }
+
+    .menu {
+      outline-offset: -8px;
+    }
   }
 </style>

@@ -7,7 +7,6 @@ import { services, studio } from '../data/site';
     <header class="head reveal">
       <p class="eyebrow">Naše usluge</p>
       <h2 class="title">Tretmani za tvoj <em>glow</em></h2>
-      <span class="rule" aria-hidden="true"></span>
       <p class="intro">
         Od trepavica i obrva, preko preplanulog tena do njegovanih noktiju – svaki detalj je važan.
       </p>
@@ -25,10 +24,11 @@ import { services, studio } from '../data/site';
                 style={s.focus && `object-position:${s.focus}`}
               />
             </div>
-            <p class="service__num">{String(i + 1).padStart(2, '0')}</p>
-            <h3 class="service__title">{s.title}</h3>
+            <div class="service__row">
+              <h3 class="service__title">{s.title}</h3>
+              <p class="service__price">{s.price}</p>
+            </div>
             <p class="service__text">{s.text}</p>
-            <p class="service__price">{s.price}</p>
             <a class="link" href={studio.bookingHref} target="_blank" rel="noopener">
               Rezerviši
             </a>
@@ -54,15 +54,13 @@ import { services, studio } from '../data/site';
   .service {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
   }
 
   .service__media {
     width: 100%;
-    aspect-ratio: 3 / 4.1;
+    aspect-ratio: 3 / 4;
     overflow: hidden;
-    border-radius: 999px 999px 4px 4px;
     background: var(--sand);
   }
 
@@ -77,38 +75,40 @@ import { services, studio } from '../data/site';
     transform: scale(1.05);
   }
 
-  .service__num {
-    margin-top: 22px;
-    color: var(--accent);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.24em;
+  .service__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2px 12px;
+    width: 100%;
+    margin-top: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
   }
 
   .service__title {
-    margin-top: 6px;
     color: var(--ink);
     font-family: var(--display);
-    font-size: clamp(1.35rem, 1.6vw, 1.6rem);
+    font-size: clamp(1.3rem, 1.55vw, 1.5rem);
     font-weight: 400;
-    line-height: 1.1;
+    line-height: 1.15;
+  }
+
+  .service__price {
+    color: var(--accent-dark);
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    white-space: nowrap;
   }
 
   .service__text {
     flex: 1;
-    max-width: 26ch;
-    margin-top: 10px;
+    margin: 12px 0 18px;
     color: var(--text);
     font-size: 13px;
     line-height: 1.6;
-  }
-
-  .service__price {
-    margin: 14px 0 16px;
-    color: var(--accent-dark);
-    font-family: var(--serif);
-    font-size: 1.15rem;
-    font-style: italic;
   }
 
   @media (max-width: 1000px) {

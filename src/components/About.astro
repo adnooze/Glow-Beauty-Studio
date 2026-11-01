@@ -8,10 +8,10 @@ import Icon from './Icon.astro';
     <div class="about__visual reveal">
       <div class="about__frame">
         <img
-          src="/images/salon-glow-sign.webp"
-          alt="Svijetleći zidni znak i manikir u Glow Beauty Studiju"
-          width="1100"
-          height="1389"
+          src="/images/lash-application.webp"
+          alt="Nadogradnja trepavica u Glow Beauty Studiju"
+          width="616"
+          height="860"
           loading="lazy"
         />
       </div>
@@ -24,7 +24,6 @@ import Icon from './Icon.astro';
     <div class="about__copy reveal">
       <p class="eyebrow">O našem studiju</p>
       <h2 class="title">Više od <em>beauty salona</em></h2>
-      <span class="rule" aria-hidden="true"></span>
       <p class="intro">
         Svaka posjeta je osmišljena da bude mirna, precizna i opuštajuća – mjesto gdje se vrhunska
         usluga spaja s pažnjom posvećenom baš tebi.
@@ -61,22 +60,12 @@ import Icon from './Icon.astro';
 
   .about__visual {
     position: relative;
-    padding: 22px 22px 0 0;
-  }
-
-  .about__visual::before {
-    content: '';
-    position: absolute;
-    inset: 0 0 22px 22px;
-    border: 1px solid var(--line-gold);
-    border-radius: 999px 999px 4px 4px;
   }
 
   .about__frame {
     position: relative;
     aspect-ratio: 4 / 5;
     overflow: hidden;
-    border-radius: 999px 999px 4px 4px;
   }
 
   .about__frame img {
@@ -95,7 +84,6 @@ import Icon from './Icon.astro';
     padding: 10px 20px;
     transform: translateX(-50%);
     background: var(--espresso);
-    border-radius: 999px;
     color: var(--cream);
     font-size: 10.5px;
     font-weight: 500;
